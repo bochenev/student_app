@@ -155,6 +155,11 @@ without necessarily having a billing card.`
       example: 1502844074211
     },
 
+    role: { type: 'number' },
+
+    address: { model:'Address' },
+
+    businessPlace: { type: 'number' }
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
     //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝

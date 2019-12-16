@@ -20,12 +20,10 @@ module.exports.session = {
   ***************************************************************************/
   secret: '13fb1b3a65e1860588bc670638ba2cdf',
 
-  adapter: 'connect-mysql-store',
-
   adapter: 'connect-mysql',
   config: {
     user: 'root',
-    password: 'mypassword',
+    password: 'Yw9{V"NwRU$7Mps;',
     database: 'student_app',
   },
   table: 'sessions',
