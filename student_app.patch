@@ -1,0 +1,263 @@
+ api/controllers/admin/edit-roles.js | 28 ----------------------------
+ config/blueprints.js                |  2 ++
+ config/datastores.js                |  4 ++--
+ config/env/development.js           |  5 +++--
+ config/models.js                    |  2 +-
+ config/routes.js                    |  2 +-
+ config/security.js                  |  2 +-
+ config/session.js                   |  3 ++-
+ package-lock.json                   | 23 +++++++----------------
+ package.json                        |  1 +
+ views/layouts/layout.ejs            |  1 +
+ 11 files changed, 21 insertions(+), 52 deletions(-)
+
+diff --git a/api/controllers/admin/edit-roles.js b/api/controllers/admin/edit-roles.js
+deleted file mode 100644
+index 4145540..0000000
+--- a/api/controllers/admin/edit-roles.js
++++ /dev/null
+@@ -1,28 +0,0 @@
+-module.exports = {
+-
+-
+-  friendlyName: 'Edit roles',
+-
+-
+-  description: '',
+-
+-
+-  inputs: {
+-
+-  },
+-
+-
+-  exits: {
+-
+-  },
+-
+-
+-  fn: async function (inputs) {
+-
+-    // All done.
+-    return;
+-
+-  }
+-
+-
+-};
+diff --git a/config/blueprints.js b/config/blueprints.js
+index 0f567ec..779a4b8 100644
+--- a/config/blueprints.js
++++ b/config/blueprints.js
+@@ -28,6 +28,8 @@ module.exports.blueprints = {
+ 
+   rest: true,
+ 
++  prefix: '/api',
++  restPrefix: '/v1',
+ 
+   /***************************************************************************
+   *                                                                          *
+diff --git a/config/datastores.js b/config/datastores.js
+index 852fa6d..403f1d6 100644
+--- a/config/datastores.js
++++ b/config/datastores.js
+@@ -49,8 +49,8 @@ module.exports.datastores = {
+     *                                                                          *
+     ***************************************************************************/
+      adapter: 'sails-mysql',
+-     url: 'mysql://root:Yw9{V"NwRU$7Mps;@localhost:3306/student_app',
+-
++    // url: 'mysql://root:Yw9{V"NwRU$7Mps;@localhost:3306/student_app',
++     url: 'mysql://root:mypassword@localhost:3306/student_app',
+   },
+ 
+ 
+diff --git a/config/env/development.js b/config/env/development.js
+index fb5e27b..48ddb76 100644
+--- a/config/env/development.js
++++ b/config/env/development.js
+@@ -19,7 +19,8 @@
+  * https://sailsjs.com/docs/concepts/deployment
+  */
+ const sailsMysql = require('sails-mysql');
+-const MYSQL_URL = 'mysql://root:Yw9{V"NwRU$7Mps;@localhost:3306/student_app';
++//const MYSQL_URL = 'mysql://root:Yw9{V"NwRU$7Mps;@localhost:3306/student_app';
++const MYSQL_URL = 'mysql://root:mypassword@localhost:3306/student_app';
+ 
+ module.exports = {
+ 
+@@ -293,7 +294,7 @@ module.exports = {
+   *                                                                         *
+   ***************************************************************************/
+   log: {
+-    level: 'debug'
++    level: 'info'
+   },
+ 
+ 
+diff --git a/config/models.js b/config/models.js
+index 4cfb509..684f586 100644
+--- a/config/models.js
++++ b/config/models.js
+@@ -53,7 +53,7 @@ module.exports.models = {
+   *                                                                          *
+   ***************************************************************************/
+ 
+-  migrate: 'safe',
++  migrate: 'alter',
+ 
+ 
+   /***************************************************************************
+diff --git a/config/routes.js b/config/routes.js
+index 098f463..360ee13 100644
+--- a/config/routes.js
++++ b/config/routes.js
+@@ -17,7 +17,7 @@ module.exports.routes = {
+   'GET /welcome/:unused?':   { action: 'dashboard/view-welcome' },
+ 
+   'GET /admin-page?':        { action: 'dashboard/view-admin' },
+-  'GET /admin/roles?':        { action: 'admin/edit-roles' },
++  'GET /admin/roles':        { action: 'admin/view-roles' },
+ 
+   'GET /faq':                { action:   'view-faq' },
+   'GET /legal/terms':        { action:   'legal/view-terms' },
+diff --git a/config/security.js b/config/security.js
+index 6b0de0c..d8a7dce 100644
+--- a/config/security.js
++++ b/config/security.js
+@@ -44,6 +44,6 @@ module.exports.security = {
+   *                                                                           *
+   ****************************************************************************/
+ 
+-  csrf: true
++  csrf: false
+ 
+ };
+diff --git a/config/session.js b/config/session.js
+index 553e813..1fcafce 100644
+--- a/config/session.js
++++ b/config/session.js
+@@ -23,7 +23,8 @@ module.exports.session = {
+   adapter: 'connect-mysql',
+   config: {
+     user: 'root',
+-    password: 'Yw9{V"NwRU$7Mps;',
++    //password: 'Yw9{V"NwRU$7Mps;',
++    password: 'mypassword',
+     database: 'student_app',
+   },
+   table: 'sessions',
+diff --git a/package-lock.json b/package-lock.json
+index c3dcb6f..b1759c6 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -1266,8 +1266,7 @@
+       "version": "1.3.1",
+       "resolved": "https://registry.npmjs.org/domelementtype/-/domelementtype-1.3.1.tgz",
+       "integrity": "sha512-BSKB+TSpMpFI/HOxCNr1O8aMOTZ8hT3pM3GQ0w/mWRmkhEDSFJkkyzz4XQsBV44BChwGkrDfMyjVD0eA2aFV3w==",
+-      "dev": true,
+-      "optional": true
++      "dev": true
+     },
+     "domhandler": {
+       "version": "2.3.0",
+@@ -5276,8 +5275,7 @@
+           "version": "1.0.0",
+           "resolved": "https://registry.npmjs.org/assert-plus/-/assert-plus-1.0.0.tgz",
+           "integrity": "sha1-8S4PPF13sLHN2RRpQuTpbB5N1SU=",
+-          "dev": true,
+-          "optional": true
++          "dev": true
+         },
+         "async": {
+           "version": "1.5.2",
+@@ -6153,7 +6151,6 @@
+           "resolved": "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.8.tgz",
+           "integrity": "sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==",
+           "dev": true,
+-          "optional": true,
+           "requires": {
+             "delayed-stream": "~1.0.0"
+           }
+@@ -6269,8 +6266,7 @@
+           "version": "1.0.0",
+           "resolved": "https://registry.npmjs.org/delayed-stream/-/delayed-stream-1.0.0.tgz",
+           "integrity": "sha1-3zrhmayt+31ECqrgsp4icrJOxhk=",
+-          "dev": true,
+-          "optional": true
++          "dev": true
+         },
+         "detect-indent": {
+           "version": "4.0.0",
+@@ -6565,8 +6561,7 @@
+           "version": "1.3.0",
+           "resolved": "https://registry.npmjs.org/extsprintf/-/extsprintf-1.3.0.tgz",
+           "integrity": "sha1-lpGEQOMEGnpBT4xS48V06zw+HgU=",
+-          "dev": true,
+-          "optional": true
++          "dev": true
+         },
+         "fast-deep-equal": {
+           "version": "2.0.1",
+@@ -7370,8 +7365,7 @@
+           "version": "0.1.1",
+           "resolved": "https://registry.npmjs.org/jsbn/-/jsbn-0.1.1.tgz",
+           "integrity": "sha1-peZUwuWi3rXyAdls77yoDA7y9RM=",
+-          "dev": true,
+-          "optional": true
++          "dev": true
+         },
+         "jsesc": {
+           "version": "1.3.0",
+@@ -7643,15 +7637,13 @@
+           "version": "1.40.0",
+           "resolved": "https://registry.npmjs.org/mime-db/-/mime-db-1.40.0.tgz",
+           "integrity": "sha512-jYdeOMPy9vnxEqFRRo6ZvTZ8d9oPb+k18PKoYNYUe2stVEBPPwsln/qWzdbmaIvnhZ9v2P+CuecK+fpUfsV2mA==",
+-          "dev": true,
+-          "optional": true
++          "dev": true
+         },
+         "mime-types": {
+           "version": "2.1.24",
+           "resolved": "https://registry.npmjs.org/mime-types/-/mime-types-2.1.24.tgz",
+           "integrity": "sha512-WaFHS3MCl5fapm3oLxU4eYDw77IQM2ACcxQ9RIxfaC3ooc6PFuBMGZZsYpvoXS5D5QTWPieo1jjLdAm3TBP3cQ==",
+           "dev": true,
+-          "optional": true,
+           "requires": {
+             "mime-db": "1.40.0"
+           }
+@@ -8589,8 +8581,7 @@
+           "version": "0.14.5",
+           "resolved": "https://registry.npmjs.org/tweetnacl/-/tweetnacl-0.14.5.tgz",
+           "integrity": "sha1-WuaBd/GS1EViadEIr6k/+HQ/T2Q=",
+-          "dev": true,
+-          "optional": true
++          "dev": true
+         },
+         "type-check": {
+           "version": "0.3.2",
+diff --git a/package.json b/package.json
+index 79788e5..b57cb9f 100644
+--- a/package.json
++++ b/package.json
+@@ -25,6 +25,7 @@
+     "sails-hook-grunt": "^4.0.0"
+   },
+   "scripts": {
++    "debug:win": "set NODE_ENV=development && node app.js",
+     "start": "NODE_ENV=production node app.js",
+     "test": "npm run lint && npm run custom-tests && echo 'Done.'",
+     "lint": "./node_modules/eslint/bin/eslint.js . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look so good.' && ./node_modules/htmlhint/bin/htmlhint -c ./.htmlhintrc views/*.ejs && ./node_modules/htmlhint/bin/htmlhint -c ./.htmlhintrc views/**/*.ejs && ./node_modules/htmlhint/bin/htmlhint -c ./.htmlhintrc views/**/**/*.ejs && ./node_modules/htmlhint/bin/htmlhint -c ./.htmlhintrc views/**/**/**/*.ejs && ./node_modules/htmlhint/bin/htmlhint -c ./.htmlhintrc views/**/**/**/**/*.ejs && ./node_modules/htmlhint/bin/htmlhint -c ./.htmlhintrc views/**/**/**/**/**/*.ejs && ./node_modules/htmlhint/bin/htmlhint -c ./.htmlhintrc views/**/**/**/**/**/**/*.ejs && echo '✔  So do your .ejs files.' && ./node_modules/lesshint/bin/lesshint assets/styles/ --max-warnings=0 && echo '✔  Your .less files look good, too.'",
+diff --git a/views/layouts/layout.ejs b/views/layouts/layout.ejs
+index 23e109e..d606335 100644
+--- a/views/layouts/layout.ejs
++++ b/views/layouts/layout.ejs
+@@ -147,6 +147,7 @@
+     <script src="/js/pages/account/account-overview.page.js"></script>
+     <script src="/js/pages/account/edit-password.page.js"></script>
+     <script src="/js/pages/account/edit-profile.page.js"></script>
++    <script src="/js/pages/admin/roles.page.js"></script>
+     <script src="/js/pages/contact.page.js"></script>
+     <script src="/js/pages/dashboard/welcome.page.js"></script>
+     <script src="/js/pages/entrance/confirmed-email.page.js"></script>

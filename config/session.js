@@ -23,7 +23,8 @@ module.exports.session = {
   adapter: 'connect-mysql',
   config: {
     user: 'root',
-    password: 'Yw9{V"NwRU$7Mps;',
+    //password: 'Yw9{V"NwRU$7Mps;',
+    password: 'mypassword',
     database: 'student_app',
   },
   table: 'sessions',
