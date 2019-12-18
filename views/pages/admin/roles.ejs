@@ -1,0 +1,56 @@
+<div id="roles" v-cloak>
+  <div class="container">
+    <div class="sub-title">
+      Roles
+      <% if(isSuperAdmin){ %>
+      <button class="btn btn-outline-info ml-2" @click="onAddNew()">Add</button>
+      <% } %>
+    </div>
+    <table>
+      <thead>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <% if(isSuperAdmin){ %>
+        <th>Manage</th>
+      <% } %>
+      </thead>
+      <tbody>
+
+      <tr v-if="isAddNew">
+        <td colspan="2">
+          <input class="form-control"  v-model.trim="newItemData.name"/>
+        </td>
+        <td colspan="2">
+          <input class="form-control"  v-model.trim="newItemData.description"/>
+        </td>
+
+          <td>
+            <div class="manage_buttons-wrapper">
+              <button  class="btn btn-outline-info ml-2" @click="save()">Save</button>
+            </div>
+          </td>
+
+      </tr>
+
+      <% roles.forEach(function(role){ %>
+      <tr>
+        <td><%= role.id %></td>
+        <td><%= role.name %></td>
+        <td></td>
+        <% if(isSuperAdmin){ %>
+          <td>
+            <div class="manage_buttons-wrapper">
+              <button class="btn btn-outline-info ml-2" @click="onEdit(<%= role.id %>)">Edit</button>
+              <button class="btn btn-outline-info ml-2" @click="onRemove(<%= role.id %>)">Remove</button>
+              <button  v-if="editable.includes(<%= role.id %>)" class="btn btn-outline-info ml-2" @click="update(<%= role.id %>)">Save</button>
+            </div>
+          </td>
+        <% } %>
+        <% }); %>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>

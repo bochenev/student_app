@@ -17,7 +17,7 @@ module.exports.routes = {
   'GET /welcome/:unused?':   { action: 'dashboard/view-welcome' },
 
   'GET /admin-page?':        { action: 'dashboard/view-admin' },
-  'GET /admin/roles?':        { action: 'admin/edit-roles' },
+  'GET /admin/roles':        { action: 'admin/view-roles' },
 
   'GET /faq':                { action:   'view-faq' },
   'GET /legal/terms':        { action:   'legal/view-terms' },

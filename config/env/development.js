@@ -19,7 +19,8 @@
  * https://sailsjs.com/docs/concepts/deployment
  */
 const sailsMysql = require('sails-mysql');
-const MYSQL_URL = 'mysql://root:Yw9{V"NwRU$7Mps;@localhost:3306/student_app';
+//const MYSQL_URL = 'mysql://root:Yw9{V"NwRU$7Mps;@localhost:3306/student_app';
+const MYSQL_URL = 'mysql://root:mypassword@localhost:3306/student_app';
 
 module.exports = {
 
@@ -293,7 +294,7 @@ module.exports = {
   *                                                                         *
   ***************************************************************************/
   log: {
-    level: 'debug'
+    level: 'info'
   },
 
 
