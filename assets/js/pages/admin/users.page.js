@@ -1,13 +1,12 @@
-parasails.registerPage('roles', {
+parasails.registerPage('users', {
 
   //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
   data: {
-    isAddNew: false,
     editableItemsMap: {},
     newItemData: {},
-    modelName: 'role',
+    modelName: 'user',
   },
 
   //  ╦  ╦╔═╗╔═╗╔═╗╦ ╦╔═╗╦  ╔═╗
@@ -27,9 +26,6 @@ parasails.registerPage('roles', {
   methods: {
     checkIsEditable: function (id) {
       return Boolean(this.editableItemsMap[id]);
-    },
-    onAddNew: function () {
-      this.isAddNew = true
     },
     onEdit: function (itemData) {
       this.editableItemsMap = Object.assign({}, this.editableItemsMap, {[itemData.id]: itemData});
@@ -56,13 +52,6 @@ parasails.registerPage('roles', {
         delete this.editableItemsMap[id];
         window.location.reload();
       })
-    },
-    save: function () {
-      this.isAddNew = false;
-      return fetch(`${location.origin}/api/v1/${this.modelName}`, {
-        method: 'POST',
-        body: JSON.stringify(this.newItemData)
-      }).then(data => window.location.reload())
     }
   }
 });

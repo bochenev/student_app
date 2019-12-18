@@ -60,8 +60,8 @@ module.exports.bootstrap = async function () {
   try {
     // By convention, this is a good place to set up fake data during development.
     await User.createEach([
-      {emailAddress: 'admin@example.com', fullName: 'Ryan Dahl', isSuperAdmin: true, password: await sails.helpers.passwords.hashPassword('abc123')},
-      {emailAddress: 'student@example.com', fullName: 'John Dow', isSuperAdmin: false, password: await sails.helpers.passwords.hashPassword('student'), role: 1},
+      {emailAddress: 'admin@example.com', fullName: 'Ryan Dahl Administrator', isSuperAdmin: true, password: await sails.helpers.passwords.hashPassword('abc123'), role: 3},
+      {emailAddress: 'student@example.com', fullName: 'John Dow Student', isSuperAdmin: false, password: await sails.helpers.passwords.hashPassword('student'), role: 1},
     ]);
 
     await Group.createEach([
@@ -83,6 +83,14 @@ module.exports.bootstrap = async function () {
       {name: 'B', weight: 4},
       {name: 'A', weight: 5}
     ]);
+
+    await AcademicSubject.createEach([
+      {name: 'Mathematics',},
+      {name: 'Business & economics'},
+      {name: 'Physical sciences'},
+      {name: 'Chemistry'},
+    ]);
+
   } catch (e) {
     sails.log(e);
   }

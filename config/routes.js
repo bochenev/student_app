@@ -19,6 +19,9 @@ module.exports.routes = {
   'GET /admin-page':        { action: 'dashboard/view-admin' },
   'GET /admin/roles':        { action: 'admin/view-roles' },
   'GET /admin/groups':        { action: 'admin/view-groups' },
+  'GET /admin/marks':        { action: 'admin/view-marks' },
+  'GET /admin/subjects':        { action: 'admin/view-subjects' },
+  'GET /admin/users':        { action: 'admin/view-users' },
 
   'GET /faq':                { action:   'view-faq' },
   'GET /legal/terms':        { action:   'legal/view-terms' },

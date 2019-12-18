@@ -1,4 +1,4 @@
-parasails.registerPage('roles', {
+parasails.registerPage('marks', {
 
   //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
@@ -7,7 +7,7 @@ parasails.registerPage('roles', {
     isAddNew: false,
     editableItemsMap: {},
     newItemData: {},
-    modelName: 'role',
+    modelName: 'mark',
   },
 
   //  ╦  ╦╔═╗╔═╗╔═╗╦ ╦╔═╗╦  ╔═╗

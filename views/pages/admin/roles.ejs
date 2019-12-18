@@ -1,7 +1,7 @@
 <div id="roles" v-cloak>
     <div class="container">
         <div class="page__sub-title">
-            Roles
+            Roles Dictionary
             <% if(isSuperAdmin){ %>
                 <button class="btn btn-outline-info ml-2 float-right" @click="onAddNew()">Add</button>
             <% } %>
@@ -12,7 +12,7 @@
             <th>Name</th>
             <th>Description</th>
             <% if(isSuperAdmin){ %>
-                <th>Manage</th>
+                <th></th>
             <% } %>
             </thead>
             <tbody>
@@ -44,10 +44,10 @@
                 <template v-else>
                     <td></td>
                     <td>
-                        <input class="form-control" v-on:input="editableItemsMap['<%= role.id %>'].name = $event.target.value" value="<%= role.name%>"/>
+                        <input class="form-control" v-model.trim="editableItemsMap[<%= role.id %>].name"/>
                     </td>
                     <td>
-                        <input class="form-control" v-on:input="editableItemsMap['<%= role.id %>'].description = $event.target.value" value="<%= role.description%>"/>
+                        <input class="form-control" v-model.trim="editableItemsMap[<%= role.id %>].description"/>
                     </td>
                 </template>
 
@@ -55,7 +55,7 @@
                     <td>
                         <div class="manage_buttons-wrapper">
                             <template v-if="typeof editableItemsMap[<%= role.id %>] !== 'object'">
-                                <button class="btn btn-outline-info ml-2" @click="onEdit(<%= role.id %>)">Edit</button>
+                                <button class="btn btn-outline-info ml-2" @click="onEdit(<%= JSON.stringify(role) %>)">Edit</button>
                                 <button class="btn btn-outline-danger ml-2" @click="remove(<%= role.id %>)">Remove</button>
                             </template>
                             <template v-else>

@@ -5,7 +5,7 @@ parasails.registerPage('groups', {
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
   data: {
     isAddNew: false,
-    editable: [],
+    editableItemsMap: {},
     newItemData: {},
     modelName: 'group',
   },
@@ -25,16 +25,19 @@ parasails.registerPage('groups', {
   //  ║║║║ ║ ║╣ ╠╦╝╠═╣║   ║ ║║ ║║║║╚═╗
   //  ╩╝╚╝ ╩ ╚═╝╩╚═╩ ╩╚═╝ ╩ ╩╚═╝╝╚╝╚═╝
   methods: {
+    checkIsEditable: function (id) {
+      return Boolean(this.editableItemsMap[id]);
+    },
     onAddNew: function () {
       this.isAddNew = true
     },
-    onEdit: function (id) {
-      this.editable.push(id)
+    onEdit: function (itemData) {
+      this.editableItemsMap = Object.assign({}, this.editableItemsMap, {[itemData.id]: itemData});
     },
     onCancel: function (id) {
-
-      if(id) {
-        this.editable.splice(this.editable.indexOf(id), 1);
+      if (id) {
+        delete this.editableItemsMap[id];
+        this.editableItemsMap = Object.assign({}, this.editableItemsMap);
       } else {
         this.isAddNew = false;
       }
@@ -45,10 +48,14 @@ parasails.registerPage('groups', {
       }).then(data => window.location.reload())
     },
     update: function (id) {
-      this.editable.splice(this.editable.indexOf(id), 1);
+
       return fetch(`${location.origin}/api/v1/${this.modelName}/${id}`, {
-        method: 'PUT'
-      }).then(data => window.location.reload())
+        method: 'PUT',
+        body: JSON.stringify(this.editableItemsMap[id]),
+      }).then(data => {
+        delete this.editableItemsMap[id];
+        window.location.reload();
+      })
     },
     save: function () {
       this.isAddNew = false;

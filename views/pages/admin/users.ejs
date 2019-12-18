@@ -1,0 +1,56 @@
+<div id="users" v-cloak>
+
+
+  <div class="container">
+    <div class="page__sub-title">
+      Users
+    </div>
+    <table style="width: 100%;">
+      <thead>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Role</th>
+      <% if(isSuperAdmin){ %>
+        <th></th>
+      <% } %>
+      </thead>
+      <tbody>
+
+      <% items.forEach(function(item){ %>
+      <tr>
+        <template v-if="typeof this.editableItemsMap[<%= item.id %>] !== 'object'">
+          <td><%= item.id %></td>
+          <td><%= item.fullName %></td>
+          <td><%= item.role.name %></td>
+        </template>
+        <template v-else>
+          <td></td>
+          <td>
+            <input class="form-control" v-model.trim="editableItemsMap[<%= item.id %>].fullName"/>
+          </td>
+        </template>
+
+        <% if(isSuperAdmin){ %>
+          <td>
+            <div class="manage_buttons-wrapper">
+              <template v-if="typeof editableItemsMap[<%= item.id %>] !== 'object'">
+                <button class="btn btn-outline-info ml-2" @click="onEdit(<%= JSON.stringify(item) %>)">Edit</button>
+                <button class="btn btn-outline-danger ml-2" @click="remove(<%= item.id %>)">Remove</button>
+              </template>
+              <template v-else>
+                <button class="btn btn-outline-success ml-2" @click="update(<%= item.id %>)">Save</button>
+                <button class="btn btn-outline-dark ml-2" @click="onCancel(<%= item.id %>)">Cancel</button>
+              </template>
+            </div>
+          </td>
+        <% } %>
+        <% }); %>
+      </tr>
+      </tbody>
+    </table>
+    <div class="page__footer-title">
+      <button class="btn btn-outline-info ml-2 float-leaft" onclick="history.back()">Back</button>
+    </div>
+  </div>
+</div>
+<%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>

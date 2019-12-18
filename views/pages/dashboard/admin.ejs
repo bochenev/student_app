@@ -1,10 +1,23 @@
 <div id="admin">
-  <div class="container">
-    <ul>
-      <li><a href="/admin/roles">Manage Roles</a></li>
-      <li><a href="/admin/groups">Manage Groups</a></li>
+    <div class="container">
 
-    </ul>
+        <div class="card border-dark mb-3" style="min-width: 18rem;">
+            <h5 class="card-header">Dictionaries</h5>
+            <div class="card-body">
+                <p class="card-text">
 
+                <div class="list-group list-group-flush">
+                    <a class="list-group-item list-group-item-action " href="/admin/users">Manage Users</a>
+                    <a class="list-group-item list-group-item-action " href="/admin/roles">Manage Roles</a>
+                    <a class="list-group-item list-group-item-action " href="/admin/groups">Manage Groups</a>
+                    <a class="list-group-item list-group-item-action " href="/admin/marks">Manage Marks</a>
+                    <a class="list-group-item list-group-item-action " href="/admin/subjects">Manage Subjects</a>
+                </div>
+
+                </p>
+            </div>
+        </div>
+
+    </div>
 </div>
 <%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>
