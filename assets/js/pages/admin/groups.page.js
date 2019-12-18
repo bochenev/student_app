@@ -1,13 +1,13 @@
-parasails.registerPage('roles', {
+parasails.registerPage('groups', {
 
   //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
   data: {
     isAddNew: false,
-    editableItemsMap: {},
+    editable: [],
     newItemData: {},
-    modelName: 'role',
+    modelName: 'group',
   },
 
   //  ╦  ╦╔═╗╔═╗╔═╗╦ ╦╔═╗╦  ╔═╗
@@ -25,19 +25,16 @@ parasails.registerPage('roles', {
   //  ║║║║ ║ ║╣ ╠╦╝╠═╣║   ║ ║║ ║║║║╚═╗
   //  ╩╝╚╝ ╩ ╚═╝╩╚═╩ ╩╚═╝ ╩ ╩╚═╝╝╚╝╚═╝
   methods: {
-    checkIsEditable: function (id) {
-      return Boolean(this.editableItemsMap[id]);
-    },
     onAddNew: function () {
       this.isAddNew = true
     },
     onEdit: function (id) {
-      this.editableItemsMap = Object.assign({}, this.editableItemsMap, {[id]: {}});
+      this.editable.push(id)
     },
     onCancel: function (id) {
-      if (id) {
-        delete this.editableItemsMap[id];
-        this.editableItemsMap = Object.assign({}, this.editableItemsMap);
+
+      if(id) {
+        this.editable.splice(this.editable.indexOf(id), 1);
       } else {
         this.isAddNew = false;
       }
@@ -48,14 +45,10 @@ parasails.registerPage('roles', {
       }).then(data => window.location.reload())
     },
     update: function (id) {
-
+      this.editable.splice(this.editable.indexOf(id), 1);
       return fetch(`${location.origin}/api/v1/${this.modelName}/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify(this.editable[id]),
-      }).then(data => {
-        delete this.editableItemsMap[id];
-        window.location.reload();
-      })
+        method: 'PUT'
+      }).then(data => window.location.reload())
     },
     save: function () {
       this.isAddNew = false;

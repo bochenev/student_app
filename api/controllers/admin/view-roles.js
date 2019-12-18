@@ -18,7 +18,7 @@ module.exports = {
 
   fn: async function () {
     const roles = await Role.find();
-    return{
+    return {
       roles,
       isSuperAdmin: this.req.me.isSuperAdmin
     };

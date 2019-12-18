@@ -13,11 +13,11 @@ module.exports = {
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
-    name: { type: 'string' },
+    name: {type: 'string'},
 
-    legalAddress: { type: 'number' },
+    legalAddress: {model: 'Address', columnType: 'INT'},
 
-    physicalAddress: { type: 'number' }
+    physicalAddress: {model: 'Address', columnType: 'INT'}
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗

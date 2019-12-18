@@ -1,0 +1,67 @@
+<div id="groups" v-cloak>
+  <div class="container">
+    <div class="page__sub-title">
+      Roles
+      <% if(isSuperAdmin){ %>
+        <button class="btn btn-outline-info ml-2 float-right" @click="onAddNew()">Add</button>
+      <% } %>
+    </div>
+    <table style="width: 100%;">
+      <thead>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <% if(isSuperAdmin){ %>
+        <th>Manage</th>
+      <% } %>
+      </thead>
+      <tbody>
+
+      <tr v-if="isAddNew">
+        <td colspan="2">
+          <input class="form-control" v-model.trim="newItemData.name"/>
+        </td>
+        <td>
+          <input class="form-control" v-model.trim="newItemData.description"/>
+        </td>
+
+        <td>
+          <div class="manage_buttons-wrapper">
+            <button class="btn btn-outline-info ml-2" @click="save()">Save</button>
+            <button class="btn btn-outline-dark ml-2" @click="onCancel()">Cancel</button>
+          </div>
+        </td>
+
+      </tr>
+
+      <% groups.forEach(function(group){ %>
+      <tr>
+        <td><%= group.id %></td>
+        <td><%= group.name %></td>
+        <td><%= group.description %></td>
+
+        <% if(isSuperAdmin){ %>
+          <td>
+            <div class="manage_buttons-wrapper">
+                          <span v-if="!editable.includes(<%= group.id %>)">
+                            <button class="btn btn-outline-info ml-2" @click="onEdit(<%= group.id %>)">Edit</button>
+                            <button class="btn btn-outline-danger ml-2" @click="remove(<%= group.id %>)">Remove</button>
+                          </span>
+              <span v-if="editable.includes(<%= group.id %>)">
+                            <button class="btn btn-outline-success ml-2" @click="update(<%= group.id %>)">Save</button>
+                            <button class="btn btn-outline-dark ml-2" @click="onCancel(<%= group.id %>)">Cancel</button>
+                          </span>
+            </div>
+          </td>
+        <% } %>
+        <% }); %>
+      </tr>
+      </tbody>
+    </table>
+    <div class="page__footer-title">
+      <button class="btn btn-outline-info ml-2 float-leaft" onclick="history.back()">Back</button>
+    </div>
+  </div>
+</div>
+<%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>
+
