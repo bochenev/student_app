@@ -19,8 +19,10 @@ module.exports = {
   fn: async function () {
 
     const items = await User.find().populate('role').populate('address');
+    const roles = await Role.find();
     return {
       items,
+      roles,
       isSuperAdmin: this.req.me.isSuperAdmin
     };
 

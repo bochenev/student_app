@@ -18,29 +18,17 @@
 
       <% items.forEach(function(item){ %>
       <tr>
-        <template v-if="typeof this.editableItemsMap[<%= item.id %>] !== 'object'">
+
           <td><%= item.id %></td>
           <td><%= item.fullName %></td>
           <td><%= item.role.name %></td>
-        </template>
-        <template v-else>
-          <td></td>
-          <td>
-            <input class="form-control" v-model.trim="editableItemsMap[<%= item.id %>].fullName"/>
-          </td>
-        </template>
+
 
         <% if(isSuperAdmin){ %>
           <td>
             <div class="manage_buttons-wrapper">
-              <template v-if="typeof editableItemsMap[<%= item.id %>] !== 'object'">
                 <button class="btn btn-outline-info ml-2" @click="onEdit(<%= JSON.stringify(item) %>)">Edit</button>
                 <button class="btn btn-outline-danger ml-2" @click="remove(<%= item.id %>)">Remove</button>
-              </template>
-              <template v-else>
-                <button class="btn btn-outline-success ml-2" @click="update(<%= item.id %>)">Save</button>
-                <button class="btn btn-outline-dark ml-2" @click="onCancel(<%= item.id %>)">Cancel</button>
-              </template>
             </div>
           </td>
         <% } %>
@@ -49,8 +37,68 @@
       </tbody>
     </table>
     <div class="page__footer-title">
-      <button class="btn btn-outline-info ml-2 float-leaft" onclick="history.back()">Back</button>
+      <button class="btn btn-outline-info ml-2 float-left" onclick="history.back()">Back</button>
     </div>
   </div>
+
+
+  <modal class="example-modal" v-if="modal==='edit-modal'" @close="closeExampleModal()" v-cloak>
+    <div class="modal-header">
+      <h2 class="modal-title">{{modalTitle}}</h2>
+      <button type="button" class="modal-close-button" data-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+
+      <form id="edit-user">
+        <div class="form-group">
+          <strong>Name:</strong>
+          <input name="fullName" class="form-control" placeholder="sturgeon@example.com" :class="[formErrors.fullName ? 'is-invalid' : '']"
+                 v-model.trim="formData.fullName" >
+          <div class="invalid-feedback" v-if="formErrors.fullName">Please enter a valid Full Name</div>
+        </div>
+
+        <div class="form-group">
+          <strong>Role:</strong>
+          <select class="custom-select" v-model.trim="formData.role.id">
+            <% roles.forEach(function(role){ %>
+            <option value="<%= role.id %>"><%= role.name %></option>
+              <% }); %>
+          </select>
+          <!--<v-select class="custom-select"
+                    v-model="formData.role"
+                    label="name"
+                    :options="<%= JSON.stringify(roles) %>"
+          >
+          </v-select>-->
+        </div>
+
+
+
+        <p class="text-danger" v-if="cloudError">An error occured while processing your request. Please check your information and try again,
+          or <a href="/contact">contact support</a> if the error persists.</p>
+      </form>
+
+
+
+<!--
+      <input class="form-control" v-model.trim="formData.fullName"/>
+
+        <h5 class="section-heading">About 2 years ago</h5>
+        <p>
+
+        </p>
+        <h5 class="section-heading">About 2 months ago</h5>
+        <p>
+
+        </p>
+-->
+
+    </div>
+   <div class="modal-footer flex-row-reverse justify-content-between">
+     <button type="button" class="btn btn-outline-success ml-2 float-right" @click="formSubmit($event)">Save</button>
+     <button type="button" data-dismiss="modal" class="btn btn-outline-dark ml-2 float-left" @click="onCancel()">Cancel</button>
+    </div>
+  </modal>
+
 </div>
 <%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>
