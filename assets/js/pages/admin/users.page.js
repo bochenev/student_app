@@ -53,13 +53,14 @@ parasails.registerPage('users', {
 
       if(Object.keys(this.formErrors).length > 0) return false;
       else {
-
-        /* fetch(`${location.origin}/api/v1/${this.modelName}/${id}`, {
+         fetch(`${location.origin}/api/v1/${this.modelName}/${this.formData.id}`, {
            method: 'PATCH',
            body: JSON.stringify(this.formData),
          }).then(data => {
            window.location.reload();
-         })*/
+         }).catch(err => {
+
+         })
       }
     },
 

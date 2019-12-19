@@ -1,104 +1,131 @@
 <div id="users" v-cloak>
 
 
-  <div class="container">
-    <div class="page__sub-title">
-      Users
-    </div>
-    <table style="width: 100%;">
-      <thead>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Role</th>
-      <% if(isSuperAdmin){ %>
-        <th></th>
-      <% } %>
-      </thead>
-      <tbody>
-
-      <% items.forEach(function(item){ %>
-      <tr>
-
-          <td><%= item.id %></td>
-          <td><%= item.fullName %></td>
-          <td><%= item.role.name %></td>
-
-
-        <% if(isSuperAdmin){ %>
-          <td>
-            <div class="manage_buttons-wrapper">
-                <button class="btn btn-outline-info ml-2" @click="onEdit(<%= JSON.stringify(item) %>)">Edit</button>
-                <button class="btn btn-outline-danger ml-2" @click="remove(<%= item.id %>)">Remove</button>
-            </div>
-          </td>
-        <% } %>
-        <% }); %>
-      </tr>
-      </tbody>
-    </table>
-    <div class="page__footer-title">
-      <button class="btn btn-outline-info ml-2 float-left" onclick="history.back()">Back</button>
-    </div>
-  </div>
-
-
-  <modal class="example-modal" v-if="modal==='edit-modal'" @close="closeExampleModal()" v-cloak>
-    <div class="modal-header">
-      <h2 class="modal-title">{{modalTitle}}</h2>
-      <button type="button" class="modal-close-button" data-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-
-      <form id="edit-user">
-        <div class="form-group">
-          <strong>Name:</strong>
-          <input name="fullName" class="form-control" placeholder="sturgeon@example.com" :class="[formErrors.fullName ? 'is-invalid' : '']"
-                 v-model.trim="formData.fullName" >
-          <div class="invalid-feedback" v-if="formErrors.fullName">Please enter a valid Full Name</div>
+    <div class="container">
+        <div class="page__sub-title">
+            Users
         </div>
+        <table style="width: 100%;">
+            <thead>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Role</th>
+            <% if(isSuperAdmin){ %>
+                <th></th>
+            <% } %>
+            </thead>
+            <tbody>
 
-        <div class="form-group">
-          <strong>Role:</strong>
-          <select class="custom-select" v-model.trim="formData.role.id">
-            <% roles.forEach(function(role){ %>
-            <option value="<%= role.id %>"><%= role.name %></option>
-              <% }); %>
-          </select>
-          <!--<v-select class="custom-select"
-                    v-model="formData.role"
-                    label="name"
-                    :options="<%= JSON.stringify(roles) %>"
-          >
-          </v-select>-->
+            <% items.forEach(function(item){ %>
+            <tr>
+
+                <td><%= item.id %></td>
+                <td><%= item.fullName %></td>
+                <td><%= item.role.name %></td>
+
+                <% if(isSuperAdmin){ %>
+                    <td>
+                        <div class="manage_buttons-wrapper">
+                            <button class="btn btn-outline-info ml-2" @click="onEdit(<%= JSON.stringify(item) %>)">Edit</button>
+                            <button class="btn btn-outline-danger ml-2" @click="remove(<%= item.id %>)">Remove</button>
+                        </div>
+                    </td>
+                <% } %>
+                <% }); %>
+            </tr>
+            </tbody>
+        </table>
+        <div class="page__footer-title">
+            <button class="btn btn-outline-info ml-2 float-left" onclick="history.back()">Back</button>
         </div>
-
-
-
-        <p class="text-danger" v-if="cloudError">An error occured while processing your request. Please check your information and try again,
-          or <a href="/contact">contact support</a> if the error persists.</p>
-      </form>
-
-
-
-<!--
-      <input class="form-control" v-model.trim="formData.fullName"/>
-
-        <h5 class="section-heading">About 2 years ago</h5>
-        <p>
-
-        </p>
-        <h5 class="section-heading">About 2 months ago</h5>
-        <p>
-
-        </p>
--->
-
     </div>
-   <div class="modal-footer flex-row-reverse justify-content-between">
-     <button type="button" class="btn btn-outline-success ml-2 float-right" @click="formSubmit($event)">Save</button>
-     <button type="button" data-dismiss="modal" class="btn btn-outline-dark ml-2 float-left" @click="onCancel()">Cancel</button>
-    </div>
-  </modal>
+
+
+    <modal class="example-modal" v-if="modal==='edit-modal'" @close="closeExampleModal()" v-cloak>
+        <div class="modal-header">
+            <h2 class="modal-title">{{modalTitle}}</h2>
+            <button type="button" class="modal-close-button" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <form id="edit-user">
+                <div class="form-group">
+                    <strong>Name:</strong>
+                    <input name="fullName" class="form-control" placeholder="sturgeon@example.com" :class="[formErrors.fullName ? 'is-invalid' : '']"
+                           v-model.trim="formData.fullName">
+                    <div class="invalid-feedback" v-if="formErrors.fullName">Please enter a valid Full Name</div>
+                </div>
+
+                <div class="form-group">
+                    <strong>Role:</strong>
+                    <select v-model="formData.role" class="custom-select">
+                        <option v-for="role in <%= JSON.stringify(roles) %>" v-bind:value="role">{{role.name}}</option>
+                    </select>
+                </div>
+                <h5 class="section-heading">Address</h5>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <strong>Country:</strong>
+                            <input name="country" class="form-control" :class="[formErrors.address ? 'is-invalid' : '']"
+                                   v-on:input="formData.address = {...formData.address, country:  $event.target.value}"
+                                   v-bind:value="formData.address && formData.address.country">
+                            <div class="invalid-feedback" v-if="formErrors.address">Please enter a valid City</div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <strong>City:</strong>
+                            <input name="city" class="form-control" :class="[formErrors.address ? 'is-invalid' : '']"
+                                   v-on:input="formData.address = {...formData.address, city:  $event.target.value}"
+                                   v-bind:value="formData.address && formData.address.city">
+                            <div class="invalid-feedback" v-if="formErrors.address">Please enter a valid City</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <strong>Address:</strong>
+                    <input name="address1" class="form-control" :class="[formErrors.address ? 'is-invalid' : '']"
+                           v-on:input="formData.address = {...formData.address, address1:  $event.target.value}"
+                           v-bind:value="formData.address && formData.address.address1">
+                    <div class="invalid-feedback" v-if="formErrors.address">Please enter a valid Address</div>
+                </div>
+
+
+                <div class="form-group">
+                    <strong>Second Address:</strong>
+                    <input name="address2" class="form-control" :class="[formErrors.address ? 'is-invalid' : '']"
+                           v-on:input="formData.address = {...formData.address, address2:  $event.target.value}"
+                           v-bind:value="formData.address && formData.address.address2">
+                    <div class="invalid-feedback" v-if="formErrors.address">Please enter a valid Second Address</div>
+                </div>
+
+
+                <p class="text-danger" v-if="cloudError">An error occured while processing your request. Please check your information and try again,
+                    or <a href="/contact">contact support</a> if the error persists.</p>
+            </form>
+
+
+            <!--
+                  <input class="form-control" v-model.trim="formData.fullName"/>
+
+                    <h5 class="section-heading">About 2 years ago</h5>
+                    <p>
+
+                    </p>
+                    <h5 class="section-heading">About 2 months ago</h5>
+                    <p>
+
+                    </p>
+            -->
+
+        </div>
+        <div class="modal-footer flex-row-reverse justify-content-between">
+            <button type="button" class="btn btn-outline-success ml-2 float-right" @click="formSubmit($event)">Save</button>
+            <button type="button" data-dismiss="modal" class="btn btn-outline-dark ml-2 float-left" @click="onCancel()">Cancel</button>
+        </div>
+    </modal>
 
 </div>
 <%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>
