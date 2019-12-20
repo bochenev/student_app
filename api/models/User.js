@@ -155,7 +155,6 @@ without necessarily having a billing card.`
       example: 1502844074211
     },
 
-    role: { model: 'role', columnType: 'INT' },
     businessPlace: { type: 'number', columnType: 'INT'},
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
@@ -164,7 +163,8 @@ without necessarily having a billing card.`
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-    address: { model:'address', columnType: 'INT'},
+    address: { model:'address'},
+    role: { model: 'role'},
   },
 
 
