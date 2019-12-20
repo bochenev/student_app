@@ -21,6 +21,7 @@ module.exports.routes = {
   'GET /admin/groups':        { action: 'admin/view-groups' },
   'GET /admin/marks':        { action: 'admin/view-marks' },
   'GET /admin/subjects':        { action: 'admin/view-subjects' },
+  'GET /admin/places':        { action: 'admin/view-business-place' },
   'GET /admin/users':        { action: 'admin/view-users' },
 
   'GET /faq':                { action:   'view-faq' },
@@ -68,5 +69,6 @@ module.exports.routes = {
   'POST  /api/v1/entrance/send-password-recovery-email': { action: 'entrance/send-password-recovery-email' },
   'POST  /api/v1/entrance/update-password-and-login':    { action: 'entrance/update-password-and-login' },
   'POST  /api/v1/deliver-contact-form-message':          { action: 'deliver-contact-form-message' },
+  'GET   /api/v1/search-address':                        { action: 'search-address' },
 
 };

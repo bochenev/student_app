@@ -10,6 +10,8 @@
             <th>ID</th>
             <th>Name</th>
             <th>Role</th>
+            <th>Business Place</th>
+
             <% if(isSuperAdmin){ %>
                 <th></th>
             <% } %>
@@ -22,7 +24,11 @@
                 <td><%= item.id %></td>
                 <td><%= item.fullName %></td>
                 <td><%= item.role.name %></td>
-
+                <td>
+                    <% if(item.businessPlace){ %>
+                        <%= item.businessPlace.name %>
+                        <% } %>
+                </td>
                 <% if(isSuperAdmin){ %>
                     <td>
                         <div class="manage_buttons-wrapper">
@@ -106,19 +112,6 @@
                     or <a href="/contact">contact support</a> if the error persists.</p>
             </form>
 
-
-            <!--
-                  <input class="form-control" v-model.trim="formData.fullName"/>
-
-                    <h5 class="section-heading">About 2 years ago</h5>
-                    <p>
-
-                    </p>
-                    <h5 class="section-heading">About 2 months ago</h5>
-                    <p>
-
-                    </p>
-            -->
 
         </div>
         <div class="modal-footer flex-row-reverse justify-content-between">

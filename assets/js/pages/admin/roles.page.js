@@ -50,7 +50,7 @@ parasails.registerPage('roles', {
     update: function (id) {
 
       return fetch(`${location.origin}/api/v1/${this.modelName}/${id}`, {
-        method: 'PUT',
+        method: 'PATCH',
         body: JSON.stringify(this.editableItemsMap[id]),
       }).then(data => {
         delete this.editableItemsMap[id];

@@ -1,15 +1,15 @@
-parasails.registerPage('users', {
+parasails.registerPage('business-place', {
+
   //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
   data: {
-    modelName: 'user',
+    modelName: 'businessPlace',
     modal: '',
     formData: {},
     formErrors: {},
     cloudError: '',
-    modalTitle: '',
-    isNewPlace: false,
+    listAddress: {searchStr: '', list: []},
   },
 
   //  ╦  ╦╔═╗╔═╗╔═╗╦ ╦╔═╗╦  ╔═╗
@@ -27,14 +27,22 @@ parasails.registerPage('users', {
   //  ║║║║ ║ ║╣ ╠╦╝╠═╣║   ║ ║║ ║║║║╚═╗
   //  ╩╝╚╝ ╩ ╚═╝╩╚═╩ ╩╚═╝ ╩ ╩╚═╝╝╚╝╚═╝
   methods: {
+    getAddressView: function (address) {
+      if (!address) return "";
+      return [address.country, address.city, address.address1, address.address2].join(", ");
+
+    },
     checkIsEditable: function (id) {
       return Boolean(this.editableItemsMap[id]);
     },
+    onAddNew: function () {
+      this.modal = 'edit-modal';
+      this.formData = {};
+      this.formErrors = {};
+    },
     onEdit: function (itemData) {
       this.formData = Object.assign({}, itemData);
-      this.isNewPlace = !Boolean(itemData.businessPlace);
       this.modal = 'edit-modal';
-      this.modalTitle = itemData.fullName;
       this.formErrors = {};
     },
     onCancel: function () {
@@ -44,7 +52,9 @@ parasails.registerPage('users', {
     remove: function (id) {
       return fetch(`${location.origin}/api/v1/${this.modelName}/${id}`, {
         method: 'DELETE'
-      }).then(data => window.location.reload())
+      }).then(res => {
+        if (res.ok) window.location.reload();
+      })
     },
 
     formSubmit: async function (e) {
@@ -55,21 +65,31 @@ parasails.registerPage('users', {
       else {
         this.cloudError = null;
 
-        this.formData.role = this.formData.role.id;
+        if (this.formData.legalAddress) {
+          const addressRequestLegal = await fetch(`${location.origin}/api/v1/address${this.formData.legalAddress.id ? ('/' + this.formData.legalAddress.id) : ""}`, {
+            method: this.formData.legalAddress.id ? 'PATCH' : 'POST',
+            body: JSON.stringify(this.formData.legal),
+          });
 
-        const addressRequest = await fetch(`${location.origin}/api/v1/address${this.formData.address.id ? ('/' + this.formData.address.id) : ""}`, {
-          method: this.formData.address.id ? 'PATCH' : 'POST',
-          body: JSON.stringify(this.formData.address),
-        });
+          if (addressRequestLegal.ok) {
+            const addr = await addressRequestLegal.json();
+            this.formData.legalAddress = addr.id;
+          }
+        }
+        if (this.formData.physicalAddress) {
+          const addressRequestPhys = await fetch(`${location.origin}/api/v1/address${this.formData.physicalAddress.id ? ('/' + this.formData.physicalAddress.id) : ""}`, {
+            method: this.formData.physicalAddress.id ? 'PATCH' : 'POST',
+            body: JSON.stringify(this.formData.legal),
+          });
 
-        if (addressRequest.ok) {
-          const addr = await addressRequest.json();
-          this.formData.address = addr.id;
+          if (addressRequestPhys.ok) {
+            const addr = await addressRequestPhys.json();
+            this.formData.physicalAddress = addr.id;
+          }
         }
 
-
-        fetch(`${location.origin}/api/v1/${this.modelName}/${this.formData.id}`, {
-          method: 'PATCH',
+        fetch(`${location.origin}/api/v1/${this.modelName}${this.formData.id ? ('/' + this.formData.id) : ""}`, {
+          method: this.formData.id ? 'PATCH' : 'POST',
           body: JSON.stringify(this.formData),
         }).then(async res => {
           if (res.ok) {
@@ -91,23 +111,25 @@ parasails.registerPage('users', {
       this.formErrors = {};
 
       // Validate password:
-      if (!this.formData.fullName) {
-        this.formErrors.fullName = true;
+      if (!this.formData.name) {
+        this.formErrors.name = true;
       }
-
-      /* // Validate password confirmation:
-       if(argins.password && argins.password !== this.formData.confirmPassword) {
-         this.formErrors.confirmPassword = true;
-       }
-
-       // If there were any issues, they've already now been communicated to the user,
-       // so simply return undefined.  (This signifies that the submission should be
-       // cancelled.)
-       if (Object.keys(this.formErrors).length > 0) {
-         return;
-       }*/
-
     },
+
+    searchExisting: async function (event, addrObj, field) {
+      this.listAddress.searchStr = event.target.value;
+      if (event.target.value.length < 3) return;
+      this.listAddress.list = await fetch(`${location.origin}/api/v1/search-address?addressString=${event.target.value}`, {
+        method: 'GET'
+      }).then(async res => {
+        if (res.ok) return await res.json();
+        else return [];
+      });
+
+
+      // addrObj = {...addrObj, [field]:  event.target.value}
+    },
+
 
   }
 });

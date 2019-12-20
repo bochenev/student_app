@@ -13,11 +13,8 @@ module.exports = {
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
-    name: {type: 'string'},
-
-    legalAddress: {model: 'Address', columnType: 'INT'},
-
-    physicalAddress: {model: 'Address', columnType: 'INT'}
+    name: {type: 'string', maxLength: 240},
+    description: {type: 'string', maxLength: 240},
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
@@ -28,6 +25,8 @@ module.exports = {
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
 
+    legalAddress: {model: 'Address', columnType: 'INT'},
+    physicalAddress: {model: 'Address', columnType: 'INT'}
   },
 
 };
