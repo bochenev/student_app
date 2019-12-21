@@ -16,14 +16,14 @@
     "sails-hook-orm": "^2.1.1",
     "sails-hook-sockets": "^2.0.0",
     "sails-mysql": "1.0.1",
-    "vue-select": "^3.4.0"
+    "vue-select": "^3.4.0",
+    "grunt": "1.0.4",
+    "sails-hook-grunt": "^4.0.0"
   },
   "devDependencies": {
     "eslint": "5.16.0",
     "htmlhint": "0.11.0",
-    "lesshint": "6.3.6",
-    "grunt": "1.0.4",
-    "sails-hook-grunt": "^4.0.0"
+    "lesshint": "6.3.6"
   },
   "scripts": {
     "debug:win": "set NODE_ENV=development && node app.js",
