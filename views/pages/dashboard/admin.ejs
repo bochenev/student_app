@@ -1,24 +1,70 @@
 <div id="admin">
     <div class="container">
+        <div class="card-deck">
+            <div class="card border-dark mb-3" style="flex: 1;">
+                <h5 class="card-header">Dictionaries</h5>
+                <div class="card-body">
+                    <p class="card-text">
 
-        <div class="card border-dark mb-3" style="min-width: 18rem;">
-            <h5 class="card-header">Dictionaries</h5>
-            <div class="card-body">
-                <p class="card-text">
+                    <div class="list-group list-group-flush">
+                        <a class="list-group-item list-group-item-action " href="/admin/users">Manage Users</a>
+                        <a class="list-group-item list-group-item-action " href="/admin/roles">Manage Roles</a>
+                        <a class="list-group-item list-group-item-action " href="/admin/groups">Manage Groups</a>
+                        <a class="list-group-item list-group-item-action " href="/admin/marks">Manage Marks</a>
+                        <a class="list-group-item list-group-item-action " href="/admin/subjects">Manage Subjects</a>
+                        <a class="list-group-item list-group-item-action " href="/admin/places">Manage Business Places</a>
+                    </div>
 
-                <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action " href="/admin/users">Manage Users</a>
-                    <a class="list-group-item list-group-item-action " href="/admin/roles">Manage Roles</a>
-                    <a class="list-group-item list-group-item-action " href="/admin/groups">Manage Groups</a>
-                    <a class="list-group-item list-group-item-action " href="/admin/marks">Manage Marks</a>
-                    <a class="list-group-item list-group-item-action " href="/admin/subjects">Manage Subjects</a>
-                    <a class="list-group-item list-group-item-action " href="/admin/places">Manage Business Places</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="card border-dark mb-3" style="flex: 3;">
+                <h5 class="card-header" >Business Places</h5>
+                <div class="card-body">
+
+                    <p class="card-text">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input name="searchPlace" class="form-control" 
+                                           placeholder="Type to search business place"
+                                           v-on:input="searchExisting($event)"
+                                    >
+                                    <div class="dropdown-menu" :class="[foundList.length ? 'show' : '']">
+                                        <div v-for="item in foundList" 
+                                            class="dropdown-item"
+                                            @click="onSelectPlace(item)"
+                                        >
+                                            {{item.name}}<br/>
+                                            <span class="">{{item.description}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-group list-group-flush">
+                                    <a  class="list-group-item list-group-item-action "
+                                        v-for="place in paginatedList.list" 
+                                    >
+                                        {{place.name}}
+                                    </a>
+                                </div>
+                                <button class="btn btn btn-link ml-2 float-left" 
+                                    @click="getMore()"
+                                >
+                                    More
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+
+                        </div>
+                    </div>
+                    </p>
+
                 </div>
 
-                </p>
             </div>
         </div>
-
     </div>
 </div>
 <%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>

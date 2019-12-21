@@ -70,5 +70,6 @@ module.exports.routes = {
   'POST  /api/v1/entrance/update-password-and-login':    { action: 'entrance/update-password-and-login' },
   'POST  /api/v1/deliver-contact-form-message':          { action: 'deliver-contact-form-message' },
   'GET   /api/v1/search-address':                        { action: 'search-address' },
+  'GET   /api/v1/search-business-place':                 { action: 'statistic/search-business-place' },
 
 };

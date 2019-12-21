@@ -2,10 +2,11 @@
 
   <div class="container">
     <div class="page__sub-title">
-      Subjects Dictionary
       <% if(isSuperAdmin){ %>
-        <button class="btn btn-outline-info ml-2 float-right" @click="onAddNew()">Add</button>
+        <button class="btn btn-outline-info mr-10 float-left" @click="onAddNew()">Add</button>
       <% } %>
+      Subjects Dictionary
+
     </div>
     <table style="width: 100%;">
       <thead>
@@ -62,7 +63,7 @@
       </tbody>
     </table>
     <div class="page__footer-title">
-      <button class="btn btn-outline-info ml-2 float-leaft" onclick="history.back()">Back</button>
+      <button class="btn btn-outline-info ml-2 float-left" onclick="history.back()">Back</button>
     </div>
   </div>
 </div>

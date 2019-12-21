@@ -59,9 +59,16 @@ module.exports.bootstrap = async function () {
 
   try {
     // By convention, this is a good place to set up fake data during development.
+
+    await Role.createEach([
+      {id: 1, name: 'Student'},
+      {id: 2, name: 'Teacher'},
+      {id: 3, name: 'Administrative'},
+    ]);
+
     await User.createEach([
-      {emailAddress: 'admin@example.com', fullName: 'Ryan Dahl Administrator', isSuperAdmin: true, password: await sails.helpers.passwords.hashPassword('abc123'), role: 3},
-      {emailAddress: 'student@example.com', fullName: 'John Dow Student', isSuperAdmin: false, password: await sails.helpers.passwords.hashPassword('student'), role: 1},
+      {emailAddress: 'admin@example.com', fullName: 'Ryan Dahl Administrator', isSuperAdmin: true, password: await sails.helpers.passwords.hashPassword('abc123'), role: 3, address: 3},
+      {emailAddress: 'student@example.com', fullName: 'John Dow Student', isSuperAdmin: false, password: await sails.helpers.passwords.hashPassword('student'), role: 1, address: 2},
     ]);
 
     await Group.createEach([
@@ -69,11 +76,20 @@ module.exports.bootstrap = async function () {
       {name: '524', description: 'just a students group 2'},
     ]);
 
-    await Role.createEach([
-      {id: 1, name: 'Student'},
-      {id: 2, name: 'Teacher'},
-      {id: 3, name: 'Administrative'},
+    await Address.createEach([
+      {id: 1, country: 'Canada', city: 'Calgary, Alberta', address1: "Lincoln Park Urban, 34"},
+      {id: 2, country: 'Canada', city: '  Edmonton, Alberta', address1: "Lincoln Park Urban, 34"},
+      {id: 3, country: 'Canada', city: 'JustACity, Alberta', address1: "Lincoln Park Urban, 34"},
+      {id: 4, country: 'Canada', city: 'JustACity, Alberta', address1: "Alberta Park Urban, 34"},
+      {id: 5, country: 'Canada', city: 'JustACity, Alberta', address1: "Alberta Park Urban, 34"},
+      {id: 6, country: 'Canada', city: 'JustACity, Alberta', address1: "Alberta Park Urban, 34"},
+      {id: 7, country: 'Canada', city: 'JustACity, Alberta', address1: "Alberta Park Urban, 34"},
+      {id: 8, country: 'Canada', city: 'JustACity, Alberta', address1: "Alberta Park Urban, 34"},
+      {id: 9, country: 'Canada', city: 'JustACity, Alberta', address1: "Alberta Park Urban, 34"},
+      {id: 10, country: 'Canada', city: 'JustACity, Alberta', address1: "Alberta Park Urban, 34"},
+      {id: 11, country: 'Canada', city: 'JustACity, Alberta', address1: "Alberta Park Urban, 34"},
     ]);
+
 
     await Mark.createEach([
       {name: 'F', weight: 0},
@@ -89,6 +105,29 @@ module.exports.bootstrap = async function () {
       {name: 'Business & economics'},
       {name: 'Physical sciences'},
       {name: 'Chemistry'},
+    ]);
+
+
+    await BusinessPlace.createEach([
+      {name: ' University of Calgary', description: 'The University of Calgary (U of C or UCalgary) is a public research university located in Calgary, Alberta, Canada. The University of Calgary started in 1944 as the Calgary branch of the University of Alberta',
+        legalAddress: 1},
+              {name: 'University of Alberta,', description: 'The University of Alberta, ',
+        legalAddress: 4},
+              {name: 'University of Alberta,', description: 'The University of Alberta, ',
+        legalAddress: 5},
+              {name: 'University of A,', description: 'The University of Alberta, is a public research university located in Calgary, ',
+        legalAddress: 6},
+              {name: 'University of B,', description: 'The University of Alberta, is a public research university located in Calgary, ',
+        legalAddress: 7},
+              {name: 'University of C,', description: 'The University of Alberta, is a public research university located in Calgary, ',
+        legalAddress: 8},
+              {name: 'University of D,', description: 'The University of Alberta, is a public research university located in Calgary, ',
+        legalAddress: 9},
+              {name: 'University of E,', description: 'The University of Alberta, is a public research university located in Calgarior to being instituted into a separate, autonomous university in 1966. It is composed of 14 faculties and over 85 research institutes and centres.',
+        legalAddress: 10},
+              {name: 'University of F,', description: 'The University of Alberta, is a public research university located in ',
+        legalAddress: 11},
+        
     ]);
 
   } catch (e) {
