@@ -23,11 +23,16 @@
 
                 <td><%= item.id %></td>
                 <td><%= item.fullName %></td>
-                <td><%= item.role.name %></td>
+
+                <td>
+                   <% if(item.role){ %>
+                        <%= item.role.name %>
+                    <% } %>   
+                </td>
                 <td>
                     <% if(item.businessPlace){ %>
                         <%= item.businessPlace.name %>
-                        <% } %>
+                    <% } %>
                 </td>
                 <% if(isSuperAdmin){ %>
                     <td>
