@@ -26,8 +26,9 @@
                     <p class="card-text">
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="form-group">
+                                <div id="search-dropdown-places" class="form-group">
                                     <input name="searchPlace" class="form-control" 
+                                            @click="hideOnClickOutside()"
                                            placeholder="Type to search business place"
                                            v-on:input="searchExisting($event)"
                                     >
@@ -37,12 +38,12 @@
                                             @click="onSelectPlace(item)"
                                         >
                                             {{item.name}}<br/>
-                                            <span class="">{{item.description}}</span>
+                                            <div class="dropdown-sub-item">{{item.description}}</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="list-group list-group-flush">
-                                    <a  class="list-group-item list-group-item-action "
+                                    <a  class="list-group-item list-group-item-action pointer-item"
                                         v-for="place in paginatedList.list" 
                                     >
                                         {{place.name}}

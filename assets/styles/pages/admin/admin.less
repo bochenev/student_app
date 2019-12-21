@@ -8,6 +8,19 @@
     height: inherit;
   }
 
+    .dropdown-sub-item {
+      overflow: hidden;
+      font-size: 10px;
+      max-width: 40vw;
+      text-overflow: ellipsis;
+    }
+    .dropdown-item {
+      cursor: pointer;
+      border-bottom: 1px solid @border-lt-gray;
+      &:hover {
+        background: @border-lt-gray;
+      }
+    }
   .card {
     a {
       text-decoration: none;

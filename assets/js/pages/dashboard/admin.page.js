@@ -21,7 +21,7 @@ parasails.registerPage('admin', {
     this.getMore(true);
   },
   mounted: async function () {
-    //…
+    
   },
 
   //  ╦╔╗╔╔╦╗╔═╗╦═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
@@ -55,7 +55,25 @@ parasails.registerPage('admin', {
           this.paginatedList.noMore = this.paginatedList.list.length < limit - 1;
         }
       });
+    },
+
+    hideOnClickOutside: function() {
+        const element = $('#search-dropdown-places')[0];
+        const outsideClickListener = event => {
+            if (!element.contains(event.target)) { // or use: event.target.closest(selector) === null
+              this.foundList = [];
+              removeClickListener()
+            }
+        }
+
+        const removeClickListener = () => {
+            document.removeEventListener('click', outsideClickListener)
+        }
+
+        document.addEventListener('click', outsideClickListener)
     }
+
+
 
   }
 });
