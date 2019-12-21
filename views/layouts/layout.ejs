@@ -48,9 +48,15 @@
     <div id="page-wrap">
       <header id="page-header" class="navbar navbar-expand-sm navbar-dark bg-dark flex-column flex-md-row justify-content-between">
         <a class="navbar-brand mr-0" href="/"><img class="logo" alt="Global Marks Accounting logo" src="/images/logo.svg"/></a>
+         <% if(me) { %>
+        <span class="h2 user-name">
+          Wellcome <%= me.fullName%> (<%= me.role && me.role.name || 'undefined role' %>)
+        </span>
+         <% } %>
         <div class="navbar-nav flex-row">
           <!-- LOGGED-IN NAVIGATION -->
           <% if(me) { %>
+
           <a class="nav-item nav-link ml-2 ml-md-0 mr-2 mr-md-0" href="/contact">Help</a>
           <!-- Only in desktop nav -->
           <div class="nav-item dropdown d-none d-sm-block">

@@ -26,7 +26,15 @@ module.exports = {
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
 
     legalAddress: {model: 'Address', columnType: 'INT'},
-    physicalAddress: {model: 'Address', columnType: 'INT'}
+    physicalAddress: {model: 'Address', columnType: 'INT'},
+    groups: {
+        collection: 'group',
+        via: 'businessPlace'
+    },
+    subjects: {
+        collection: 'academicSubject',
+        via: 'places'
+    },
   },
 
 };

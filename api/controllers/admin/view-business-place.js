@@ -17,7 +17,9 @@ module.exports = {
 
 
   fn: async function () {
-    const items = await BusinessPlace.find().populate('legalAddress').populate('physicalAddress');
+    const items = await BusinessPlace.find()
+      .populate('legalAddress')
+      .populate('physicalAddress');
 
     return {
       items,
