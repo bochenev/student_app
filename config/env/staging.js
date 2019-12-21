@@ -42,7 +42,7 @@ module.exports = Object.assign({}, PRODUCTION_CONFIG, {
     onlyAllowOrigins: [
       'http://localhost:1337',
       'https://shrouded-oasis-42157.herokuapp.com',
-      // 'http://example-staging.herokuapp.com',
+      'http://shrouded-oasis-42157.herokuapp.com',
       // 'https://staging.example.com',
       // 'http://staging.example.com',
     ],
