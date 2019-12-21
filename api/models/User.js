@@ -165,6 +165,7 @@ without necessarily having a billing card.`
     address: { model:'address'},
     role: { model: 'role'},    
     businessPlace: { model: 'businessPlace'},
+    group: { model: 'group'},
   },
 
 

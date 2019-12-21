@@ -17,7 +17,7 @@ module.exports = {
 
 
   fn: async function () {
-    const isLocalAdmin = this.req.me.role ? this.req.me.role.id === 4 : false; 
+    const isLocalAdmin = this.req.me.role ? (this.req.me.role.id === 4) : false; 
     const isSuperAdmin = Boolean(this.req.me.isSuperAdmin);
     // Respond with view.
     return {

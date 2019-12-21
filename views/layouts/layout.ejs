@@ -49,9 +49,12 @@
       <header id="page-header" class="navbar navbar-expand-sm navbar-dark bg-dark flex-column flex-md-row justify-content-between">
         <a class="navbar-brand mr-0" href="/"><img class="logo" alt="Global Marks Accounting logo" src="/images/logo.svg"/></a>
          <% if(me) { %>
-        <span class="h2 user-name">
-          Wellcome <%= me.fullName%> (<%= me.role && me.role.name || 'undefined role' %>)
-        </span>
+            <span class="h2 user-name">
+              Welcome <%= me.fullName%>
+              <% if(me.role) { %>
+                (<%= me.role.name %>)
+              <% } %>
+          </span>
          <% } %>
         <div class="navbar-nav flex-row">
           <!-- LOGGED-IN NAVIGATION -->

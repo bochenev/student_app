@@ -17,7 +17,7 @@ module.exports = {
 
 
   fn: async function () {
-    const groups = await Group.find().pupulate('businessPlace');
+    const groups = await Group.find().populate('businessPlace');
     return{
       groups,
       isSuperAdmin: this.req.me.isSuperAdmin

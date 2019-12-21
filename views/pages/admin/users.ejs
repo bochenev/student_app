@@ -12,6 +12,7 @@
             <th>Name</th>
             <th>Role</th>
             <th>Business Place</th>
+            <th>Group</th>
 
             <% if(isSuperAdmin){ %>
                 <th></th>
@@ -30,9 +31,14 @@
                         <%= item.role.name %>
                     <% } %>   
                 </td>
-                <td>
+                <td title="<%= item.businessPlace && item.businessPlace.name %>">
                     <% if(item.businessPlace){ %>
                         <%= item.businessPlace.name %>
+                    <% } %>
+                </td>
+                <td>
+                    <% if(item.group){ %>
+                        <%= item.group.name %>
                     <% } %>
                 </td>
                 <% if(isSuperAdmin){ %>
@@ -76,7 +82,24 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="form-group">
+                            <strong>Email:</strong>
+                            <input name="email" class="form-control" placeholder="sturgeon@example.com" :class="[formErrors.fullName ? 'is-invalid' : '']"
+                                   v-model.trim="formData.emailAddress">
+                            <div class="invalid-feedback" v-if="formErrors.fullName">Please enter a valid Email</div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <strong>Group:</strong>
+                            <select v-model="formData.group" class="custom-select">
+                                <option v-for="group in <%= JSON.stringify(groups) %>" v-bind:value="group">{{group.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                     <strong>Business Place:</strong>
                     <select v-model="formData.businessPlace" class="custom-select">

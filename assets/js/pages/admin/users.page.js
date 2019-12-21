@@ -56,17 +56,20 @@ parasails.registerPage('users', {
         this.cloudError = null;
         const formData = Object.assign({}, this.formData);
 
-        formData.role = formData.role.id;
-        formData.businessPlace = formData.businessPlace.id;
+        formData.role = formData.role ? formData.role.id : null;
+        formData.group = formData.group ? formData.group.id : null;
+        formData.businessPlace = formData.businessPlace ? formData.businessPlace.id : null;
 
-        const addressRequest = await fetch(`${location.origin}/api/v1/address${formData.address.id ? ('/' + formData.address.id) : ""}`, {
-          method: formData.address.id ? 'PATCH' : 'POST',
-          body: JSON.stringify(formData.address),
-        });
+        if(formData.address){
+          const addressRequest = await fetch(`${location.origin}/api/v1/address${formData.address.id ? ('/' + formData.address.id) : ""}`, {
+            method: formData.address.id ? 'PATCH' : 'POST',
+            body: JSON.stringify(formData.address),
+          });
 
-        if (addressRequest.ok) {
-          const addr = await addressRequest.json();
-          formData.address = addr.id;
+          if (addressRequest.ok) {
+            const addr = await addressRequest.json();
+            formData.address = addr.id;
+          }
         }
 
 
@@ -96,7 +99,9 @@ parasails.registerPage('users', {
       if (!this.formData.fullName) {
         this.formErrors.fullName = true;
       }
-
+      if (!this.formData.emailAddress) {
+        this.formErrors.emailAddress = true;
+      }
       /* // Validate password confirmation:
        if(argins.password && argins.password !== this.formData.confirmPassword) {
          this.formErrors.confirmPassword = true;
