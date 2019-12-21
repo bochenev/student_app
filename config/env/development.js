@@ -19,6 +19,8 @@
  * https://sailsjs.com/docs/concepts/deployment
  */
 const sailsMysql = require('sails-mysql');
+
+// prod const MYSQL_URL = 'mysql://bab273655e95f9:25f4b0c2@us-cdbr-iron-east-05.cleardb.net/heroku_09c85d004cdf1fc';
 const MYSQL_URL = 'mysql://root:Yw9{V"NwRU$7Mps;@localhost:3306/student_app';
 //const MYSQL_URL = 'mysql://root:mypassword@localhost:3306/student_app';
 
@@ -199,6 +201,14 @@ module.exports = {
     //
     //--------------------------------------------------------------------------
 
+     adapter: 'connect-mysql',
+       config: {
+    user: 'root',
+    password: 'Yw9{V"NwRU$7Mps;',
+    //password: 'mypassword',
+    database: 'student_app',
+  },
+  table: 'sessions',
 
     /***************************************************************************
     *                                                                          *
