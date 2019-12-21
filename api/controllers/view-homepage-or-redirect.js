@@ -24,11 +24,8 @@ module.exports = {
 
 
   fn: async function () {
-   if (this.req.me && this.req.me.isSuperAdmin) {
-      throw {redirect:'/admin-page'};
-    }
     if (this.req.me) {
-      throw {redirect:'/welcome'};
+      throw {redirect:'/admin-page'};
     }
 
     return {};

@@ -2,6 +2,7 @@
 
     <div class="container">
         <div class="page__sub-title">
+            <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()">Back</button>
             Business Places Dictionary
             <% if(isSuperAdmin){ %>
                 <button class="btn btn-outline-info ml-2 float-right" @click="onAddNew()">Add</button>
@@ -24,10 +25,14 @@
             <tr>
 
                 <td><%= item.id %></td>
-                <td><%= item.name %></td>
-                <td><%= item.description %></td>
-                <td>{{ getAddressView(<%= JSON.stringify(item.legalAddress) %>) }}</td>
-                <td>{{ getAddressView(<%= JSON.stringify(item.physicalAddress) %>) }}</td>
+                <td title="<%= item.name %>"><%= item.name %></td>
+                <td title="<%= item.description %>"><%= item.description %></td>
+                <td :title="getAddressView(<%= JSON.stringify(item.legalAddress) %>)">
+                    {{ getAddressView(<%= JSON.stringify(item.legalAddress) %>) }}
+                </td>
+                <td :title="getAddressView(<%= JSON.stringify(item.physicalAddress) %>)">
+                    {{ getAddressView(<%= JSON.stringify(item.physicalAddress) %>) }}
+                </td>
 
                 <% if(isSuperAdmin){ %>
                     <td>
@@ -42,9 +47,6 @@
             </tr>
             </tbody>
         </table>
-        <div class="page__footer-title">
-            <button class="btn btn-outline-info ml-2 float-leaft" onclick="history.back()">Back</button>
-        </div>
     </div>
 
     <modal class="example-modal" v-if="modal==='edit-modal'" @close="closeExampleModal()" v-cloak>
@@ -92,20 +94,14 @@
                 <div class="form-group">
                     <strong>Address:</strong>
                     <input name="address1" class="form-control" :class="[formErrors.legalAddress ? 'is-invalid' : '']"
-                           placeholder="Type to search existing"
-                           v-on:input="searchExisting($event, formData.legalAddress, 'address1')"
-                           v-bind:value="formData.legalAddress ? formData.legalAddress.address1 : listAddress.searchStr">
+                           v-on:input="formData.legalAddress = {...formData.legalAddress, address1:  $event.target.value}"
+                           v-bind:value="formData.legalAddress ? formData.legalAddress.address1">
                     <div class="invalid-feedback" v-if="formErrors.legalAddress">Please enter a valid Address</div>
-
-                  <div class="dropdown-menu" :class="[listAddress.list.length ? 'show' : '']">
-                    <div v-for="address in listAddress.list" class="dropdown-item">{{ getAddressView(address)}}</div>
-                  </div>
 
                 </div>
                 <div class="form-group">
                     <strong>Second Address:</strong>
                     <input name="address2" class="form-control" :class="[formErrors.address ? 'is-invalid' : '']"
-                           placeholder="Type to search existing"
                            v-on:input="formData.address = {...formData.address, address2:  $event.target.value}"
                            v-bind:value="formData.address && formData.address.address2">
                     <div class="invalid-feedback" v-if="formErrors.address">Please enter a valid Second Address</div>

@@ -54,23 +54,25 @@ parasails.registerPage('users', {
       if (Object.keys(this.formErrors).length > 0) return false;
       else {
         this.cloudError = null;
+        const formData = Object.assign({}, this.formData);
 
-        this.formData.role = this.formData.role.id;
+        formData.role = formData.role.id;
+        formData.businessPlace = formData.businessPlace.id;
 
-        const addressRequest = await fetch(`${location.origin}/api/v1/address${this.formData.address.id ? ('/' + this.formData.address.id) : ""}`, {
-          method: this.formData.address.id ? 'PATCH' : 'POST',
-          body: JSON.stringify(this.formData.address),
+        const addressRequest = await fetch(`${location.origin}/api/v1/address${formData.address.id ? ('/' + formData.address.id) : ""}`, {
+          method: formData.address.id ? 'PATCH' : 'POST',
+          body: JSON.stringify(formData.address),
         });
 
         if (addressRequest.ok) {
           const addr = await addressRequest.json();
-          this.formData.address = addr.id;
+          formData.address = addr.id;
         }
 
 
-        fetch(`${location.origin}/api/v1/${this.modelName}/${this.formData.id}`, {
+        fetch(`${location.origin}/api/v1/${this.modelName}/${formData.id}`, {
           method: 'PATCH',
-          body: JSON.stringify(this.formData),
+          body: JSON.stringify(formData),
         }).then(async res => {
           if (res.ok) {
             window.location.reload();

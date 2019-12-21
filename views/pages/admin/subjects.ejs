@@ -2,11 +2,11 @@
 
   <div class="container">
     <div class="page__sub-title">
+      <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()">Back</button>
+      Subjects Dictionary
       <% if(isSuperAdmin){ %>
         <button class="btn btn-outline-info mr-10 float-left" @click="onAddNew()">Add</button>
       <% } %>
-      Subjects Dictionary
-
     </div>
     <table style="width: 100%;">
       <thead>

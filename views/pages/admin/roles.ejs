@@ -1,8 +1,9 @@
 <div id="roles" v-cloak>
     <div class="container">
         <div class="page__sub-title">
+            <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()">Back</button>
             Roles Dictionary
-            <% if(isSuperAdmin){ %>
+            <% if(false){ %>
                 <button class="btn btn-outline-info ml-2 float-right" @click="onAddNew()">Add</button>
             <% } %>
         </div>
@@ -69,9 +70,6 @@
             </tr>
             </tbody>
         </table>
-        <div class="page__footer-title">
-            <button class="btn btn-outline-info ml-2 float-leaft" onclick="history.back()">Back</button>
-        </div>
     </div>
 </div>
 <%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>

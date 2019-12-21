@@ -9,7 +9,6 @@ parasails.registerPage('business-place', {
     formData: {},
     formErrors: {},
     cloudError: '',
-    listAddress: {searchStr: '', list: []},
   },
 
   //  ╦  ╦╔═╗╔═╗╔═╗╦ ╦╔═╗╦  ╔═╗
@@ -31,9 +30,6 @@ parasails.registerPage('business-place', {
       if (!address) return "";
       return [address.country, address.city, address.address1, address.address2].join(", ");
 
-    },
-    checkIsEditable: function (id) {
-      return Boolean(this.editableItemsMap[id]);
     },
     onAddNew: function () {
       this.modal = 'edit-modal';
@@ -110,26 +106,14 @@ parasails.registerPage('business-place', {
       // Clear out any pre-existing error messages.
       this.formErrors = {};
 
-      // Validate password:
+
       if (!this.formData.name) {
         this.formErrors.name = true;
       }
+
+      if (!this.formData.legalAddress) {
+        this.formErrors.name = true;
+      }
     },
-
-    searchExisting: async function (event, addrObj, field) {
-      this.listAddress.searchStr = event.target.value;
-      if (event.target.value.length < 3) return;
-      this.listAddress.list = await fetch(`${location.origin}/api/v1/search-address?addressString=${event.target.value}`, {
-        method: 'GET'
-      }).then(async res => {
-        if (res.ok) return await res.json();
-        else return [];
-      });
-
-
-      // addrObj = {...addrObj, [field]:  event.target.value}
-    },
-
-
   }
 });

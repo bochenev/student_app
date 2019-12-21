@@ -17,9 +17,14 @@ module.exports = {
 
 
   fn: async function () {
-
+    const isLocalAdmin = this.req.me.role.id === 4; 
+    const isSuperAdmin = Boolean(this.req.me.isSuperAdmin);
     // Respond with view.
-    return {};
+    return {
+      isAllowEdit: isLocalAdmin || isSuperAdmin,
+      isLocalAdmin,
+      actionName: (isLocalAdmin || isSuperAdmin) ? "Manage" : "View"
+    };
 
   }
 

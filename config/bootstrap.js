@@ -64,6 +64,7 @@ module.exports.bootstrap = async function () {
       {id: 1, name: 'Student'},
       {id: 2, name: 'Teacher'},
       {id: 3, name: 'Administrative'},
+      {id: 4, name: 'Local Admin'},
     ]);
 
     await User.createEach([
