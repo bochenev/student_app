@@ -66,7 +66,7 @@
                     <strong>Name:</strong>
                     <textarea name="description" class="form-control" placeholder="sturgeon@example.com" :class="[formErrors.fullName ? 'is-invalid' : '']"
                               v-model.trim="formData.description">
-          </textarea>
+                    </textarea>
                     <div class="invalid-feedback" v-if="formErrors.fullName">Please enter a valid Full Name</div>
                 </div>
 
@@ -95,7 +95,7 @@
                     <strong>Address:</strong>
                     <input name="address1" class="form-control" :class="[formErrors.legalAddress ? 'is-invalid' : '']"
                            v-on:input="formData.legalAddress = {...formData.legalAddress, address1:  $event.target.value}"
-                           v-bind:value="formData.legalAddress ? formData.legalAddress.address1">
+                           v-bind:value="formData.legalAddress && formData.legalAddress.address1">
                     <div class="invalid-feedback" v-if="formErrors.legalAddress">Please enter a valid Address</div>
 
                 </div>
