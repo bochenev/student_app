@@ -47,7 +47,6 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     default: {
-      adapter: 'sails-mysql',
       url: 'mysql://bab273655e95f9:25f4b0c2@us-cdbr-iron-east-05.cleardb.net/heroku_09c85d004cdf1fc?',
       //--------------------------------------------------------------------------
       //  /\   To avoid checking it in to version control, you might opt to set
@@ -184,8 +183,8 @@ module.exports = {
     * > (For a full list, see https://sailsjs.com/plugins/sessions)            *
     *                                                                          *
     ***************************************************************************/
-    // adapter: '@sailshq/connect-redis',
-    // url: 'redis://user:password@localhost:6379/databasenumber',
+    adapter: '@sailshq/connect-redis',
+    url: 'redis://h:pcc021680b44036d308d747271e6ead7d74baa95881e80b2b34eaef5800d3cc83@ec2-52-7-238-54.compute-1.amazonaws.com:23379',
     //--------------------------------------------------------------------------
     // /\   OR, to avoid checking it in to version control, you might opt to
     // ||   set sensitive credentials like this using an environment variable.
@@ -196,7 +195,6 @@ module.exports = {
     // ```
     //
     //--------------------------------------------------------------------------
-
 
 
     /***************************************************************************
