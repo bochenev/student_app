@@ -18,10 +18,12 @@ module.exports.routes = {
   'GET /admin-page':        { action: 'dashboard/view-admin' },
   'GET /admin/roles':        { action: 'admin/view-roles' },
   'GET /admin/groups':        { action: 'admin/view-groups' },
+  'GET /admin/groups/place/:placeId':        { action: 'admin/view-groups' },
   'GET /admin/marks':        { action: 'admin/view-marks' },
   'GET /admin/subjects':        { action: 'admin/view-subjects' },
   'GET /admin/places':        { action: 'admin/view-business-place' },
-  'GET /admin/users':        { action: 'admin/view-users' },
+  'GET /admin/users':                      { action: 'admin/view-users' },
+  'GET /admin/users/place/:placeId':        { action: 'admin/view-users' },
 
   'GET /faq':                { action:   'view-faq' },
   'GET /legal/terms':        { action:   'legal/view-terms' },
@@ -68,7 +70,7 @@ module.exports.routes = {
   'POST  /api/v1/entrance/send-password-recovery-email': { action: 'entrance/send-password-recovery-email' },
   'POST  /api/v1/entrance/update-password-and-login':    { action: 'entrance/update-password-and-login' },
   'POST  /api/v1/deliver-contact-form-message':          { action: 'deliver-contact-form-message' },
-  'GET   /api/v1/search-address':                        { action: 'search-address' },
-  'GET   /api/v1/search-business-place':                 { action: 'statistic/search-business-place' },
 
+  'GET   /api/v1/search-address':                        { action: 'search-address' },
+  'GET   /api/v1/search-business-place':                 { action: 'business-place/search-business-place' },
 };

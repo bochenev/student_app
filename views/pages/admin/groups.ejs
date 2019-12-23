@@ -3,6 +3,9 @@
     <div class="page__sub-title">
       <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()">Back</button>
       Groups Dictionary
+      <% if(businessPlace){ %>
+        for <%= businessPlace.name %>
+      <% } %>
       <% if(isSuperAdmin){ %>
         <button class="btn btn-outline-info ml-2 float-right" @click="onAddNew()">Add</button>
       <% } %>
@@ -12,6 +15,7 @@
       <th>ID</th>
       <th>Name</th>
       <th>Description</th>
+      <th>Business Place</th>
       <% if(isSuperAdmin){ %>
         <th></th>
       <% } %>
@@ -25,6 +29,11 @@
         </td>
         <td>
           <input class="form-control" v-model.trim="newItemData.description"/>
+        </td>
+        <td>
+          <select v-model="newItemData.businessPlace" class="custom-select">
+            <option v-for="place in <%= JSON.stringify(businessPlaces) %>" v-bind:value="place">{{place.name}}</option>
+          </select>
         </td>
 
         <td>
@@ -41,6 +50,7 @@
           <td><%= group.id %></td>
           <td><%= group.name %></td>
           <td><%= group.description %></td>
+          <td><%= group.businessPlace && group.businessPlace.name %></td>
         </template>
         <template v-else>
           <td></td>
@@ -49,6 +59,11 @@
           </td>
           <td>
             <input class="form-control" v-model.trim="editableItemsMap[<%= group.id %>].description"/>
+          </td>
+          <td>
+            <select v-model="editableItemsMap[<%= group.id %>].businessPlace" class="custom-select">
+              <option v-for="place in <%= JSON.stringify(businessPlaces) %>" v-bind:value="place">{{place.name}}</option>
+            </select>
           </td>
         </template>
 

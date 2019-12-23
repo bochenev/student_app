@@ -4,6 +4,9 @@
     padding-top: 24px;
     height: inherit;
   }
+
+
+
   .card-deck {
     height: inherit;
   }
@@ -22,6 +25,12 @@
       }
     }
   .card {
+
+    &.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
     a {
       text-decoration: none;
       border-bottom: none;

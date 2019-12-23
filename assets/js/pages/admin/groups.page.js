@@ -48,6 +48,8 @@ parasails.registerPage('groups', {
       }).then(data => window.location.reload())
     },
     update: function (id) {
+      const item = this.editableItemsMap[id];
+      item.businessPlace = item.businessPlace ? item.businessPlace.id : null;
 
       return fetch(`${location.origin}/api/v1/${this.modelName}/${id}`, {
         method: 'PATCH',
@@ -59,6 +61,7 @@ parasails.registerPage('groups', {
     },
     save: function () {
       this.isAddNew = false;
+      this.newItemData.businessPlace = this.newItemData.businessPlace ? this.newItemData.businessPlace.id : null;
       return fetch(`${location.origin}/api/v1/${this.modelName}`, {
         method: 'POST',
         body: JSON.stringify(this.newItemData)

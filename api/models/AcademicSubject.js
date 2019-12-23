@@ -26,7 +26,11 @@ module.exports = {
     places: {
         collection: 'businessPlace',
         via: 'subjects'
-    }
+    },
+    groups: {
+      collection: 'group',
+      via: 'subjects'
+    },
   },
 
 };

@@ -25,7 +25,7 @@ module.exports = {
         name: {contains: inputs.search}
       },
       limit: 20,
-    });
+    }).populate();
 
   }
 

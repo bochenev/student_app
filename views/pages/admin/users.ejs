@@ -5,6 +5,9 @@
         <div class="page__sub-title">
             <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()">Back</button>
             Users
+            <% if(businessPlace){ %>
+                for <%= businessPlace.name %>
+            <% } %>
         </div>
         <table style="width: 100%;">
             <thead>
@@ -29,7 +32,7 @@
                 <td>
                    <% if(item.role){ %>
                         <%= item.role.name %>
-                    <% } %>   
+                    <% } %>
                 </td>
                 <td title="<%= item.businessPlace && item.businessPlace.name %>">
                     <% if(item.businessPlace){ %>

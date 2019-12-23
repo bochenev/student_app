@@ -25,6 +25,10 @@ module.exports = {
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
     businessPlace:{model: 'businessPlace'},
+    subjects: {
+      collection: 'academicSubject',
+      via: 'groups'
+    },
   },
 
 

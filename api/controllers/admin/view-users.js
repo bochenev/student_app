@@ -15,24 +15,36 @@ module.exports = {
 
   },
 
-
   fn: async function () {
+    const placeId = Number(this.req.params.placeId);
+    const businessPlaces = await BusinessPlace.find();
+    const groups = await Group.find();
+    const roles = await Role.find();
 
-    const items = await User.find()
+    let items = [], businessPlace = null;
+
+    if (placeId) {
+      businessPlace = businessPlaces.find(item => item.id === placeId);
+      items = await User.find({where: {businessPlace: placeId}})
       .populate('role')
       .populate('address')
       .populate('businessPlace')
       .populate('group');
+    } else {
+      items = await User.find()
+      .populate('role')
+      .populate('address')
+      .populate('businessPlace')
+      .populate('group');
+    }
 
-    const groups = await Group.find();
-    const roles = await Role.find();
-    const businessPlaces = await BusinessPlace.find();
 
     return {
       items,
       roles,
       groups,
       businessPlaces,
+      businessPlace,
       isSuperAdmin: this.req.me.isSuperAdmin
     };
 

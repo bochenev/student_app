@@ -1,5 +1,5 @@
 /**
- * BusinessPlace.js
+ * MarksReport.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
@@ -13,8 +13,6 @@ module.exports = {
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
-    name: {type: 'string', maxLength: 240},
-    description: {type: 'string', maxLength: 500},
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
@@ -25,20 +23,9 @@ module.exports = {
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
 
-    legalAddress: {model: 'Address', columnType: 'INT'},
-    physicalAddress: {model: 'Address', columnType: 'INT'},
-    groups: {
-        collection: 'group',
-        via: 'businessPlace'
-    },
-    subjects: {
-        collection: 'academicSubject',
-        via: 'places'
-    },
-    users: {
-      collection: 'user',
-      via: 'businessPlace',
-    }
+    subject: {model: "academicSubject"},
+    user: {model: 'user'},
+    mark: {model: 'mark'},
   },
 
 };

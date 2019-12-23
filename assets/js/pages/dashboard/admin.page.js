@@ -9,7 +9,7 @@ parasails.registerPage('admin', {
     cloudError: '',
     searchStr: '',
     selectedPlace: {},
-    paginatedList: {list: [], skip: 0, limit: 6, noMore: false},
+    paginatedList: {list: [], skip: 0, limit: 6, hasMore: false, previous: false},
   },
 
   //  ╦  ╦╔═╗╔═╗╔═╗╦ ╦╔═╗╦  ╔═╗
@@ -21,14 +21,14 @@ parasails.registerPage('admin', {
     this.getMore(true);
   },
   mounted: async function () {
-    
+
   },
 
   //  ╦╔╗╔╔╦╗╔═╗╦═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
   //  ║║║║ ║ ║╣ ╠╦╝╠═╣║   ║ ║║ ║║║║╚═╗
   //  ╩╝╚╝ ╩ ╚═╝╩╚═╩ ╩╚═╝ ╩ ╩╚═╝╝╚╝╚═╝
   methods: {
-  
+
     searchExisting: async function (event, addrObj, field) {
       if (event.target.value.length < 3) return;
       this.foundList = await fetch(`${location.origin}/api/v1/search-business-place?search=${event.target.value}`, {
@@ -42,6 +42,20 @@ parasails.registerPage('admin', {
         this.selectedPlace = place;
     },
 
+    getPrevious: async function () {
+    this.paginatedList.skip = Math.max(this.paginatedList.skip - 6, 0);
+
+      const {skip, limit} = this.paginatedList;
+      fetch(`${location.origin}/api/v1/businessPlace?limit=${limit}&skip=${skip}`, {
+        method: 'GET'
+      }).then(async res => {
+        if (res.ok) {
+          this.paginatedList.list = await res.json();
+          this.paginatedList.hasMore = !(this.paginatedList.list.length < limit - 1);
+          this.paginatedList.previous = skip !== 0;
+        }
+      });
+    },
     getMore: async function (isFirst) {
       if (!isFirst) {
         this.paginatedList.skip += 6;
@@ -52,7 +66,8 @@ parasails.registerPage('admin', {
       }).then(async res => {
         if (res.ok) {
           this.paginatedList.list = await res.json();
-          this.paginatedList.noMore = this.paginatedList.list.length < limit - 1;
+          this.paginatedList.hasMore = !(this.paginatedList.list.length < limit - 1);
+          this.paginatedList.previous = skip !== 0;
         }
       });
     },
@@ -72,7 +87,6 @@ parasails.registerPage('admin', {
 
         document.addEventListener('click', outsideClickListener)
     }
-
 
 
   }

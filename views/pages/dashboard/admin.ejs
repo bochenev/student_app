@@ -22,18 +22,17 @@
             <div class="card border-dark mb-3" style="flex: 3;">
                 <h5 class="card-header" >Business Places</h5>
                 <div class="card-body">
-
-                    <p class="card-text">
+                    <div class="card-text">
                         <div class="row">
                             <div class="col-md-4">
                                 <div id="search-dropdown-places" class="form-group">
-                                    <input name="searchPlace" class="form-control" 
+                                    <input name="searchPlace" class="form-control"
                                             @click="hideOnClickOutside()"
                                            placeholder="Type to search business place"
                                            v-on:input="searchExisting($event)"
                                     >
                                     <div class="dropdown-menu" :class="[foundList.length ? 'show' : '']">
-                                        <div v-for="item in foundList" 
+                                        <div v-for="item in foundList"
                                             class="dropdown-item"
                                             @click="onSelectPlace(item)"
                                         >
@@ -44,26 +43,64 @@
                                 </div>
                                 <div class="list-group list-group-flush">
                                     <a  class="list-group-item list-group-item-action pointer-item"
-                                        v-for="place in paginatedList.list" 
+                                        v-for="place in paginatedList.list" @click="onSelectPlace(place)"
                                     >
                                         {{place.name}}
                                     </a>
                                 </div>
-                                <button class="btn btn btn-link ml-2 float-left" 
-                                    @click="getMore()"
-                                >
-                                    More
-                                </button>
+                                <div>
+                                    <button class="btn btn btn-link ml-2 float-left"
+                                            v-if="paginatedList.previous"
+                                            @click="getPrevious()"
+                                    >
+                                        Previous
+                                    </button>
+                                    <button class="btn btn btn-link ml-2 float-left"
+                                            v-if="paginatedList.hasMore"
+                                        @click="getMore()"
+                                    >
+                                        Next
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card" style="width: 100%" :class="[!Object.keys(selectedPlace).length ? 'disabled' : '']">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{selectedPlace.name}}</h5>
+
+                                        <div class="card-text">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <a :href="'/admin/groups/place/' + selectedPlace.id">Groups</a>:
+                                                </div>
+                                                <div class="col-md-4">
+                                                    {{selectedPlace.groups ? selectedPlace.groups.length : 'N/A'}}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <a :href="'/admin/users/place/' + selectedPlace.id">Users</a>:
+                                                </div>
+                                                <div class="col-md-4">
+                                                    {{selectedPlace.users ? selectedPlace.users.length : 'N/A'}}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    Subjects:
+                                                </div>
+                                                <div class="col-md-4">
+                                                    {{selectedPlace.users ? selectedPlace.users.length : 'N/A'}}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-8">
-
-                        </div>
                     </div>
-                    </p>
-
                 </div>
-
             </div>
         </div>
     </div>
