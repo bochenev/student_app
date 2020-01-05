@@ -20,14 +20,16 @@ module.exports.session = {
   ***************************************************************************/
   secret: '13fb1b3a65e1860588bc670638ba2cdf',
 
-  adapter: 'connect-mysql',
-  config: {
-    user: 'root',
-    password: 'Yw9{V"NwRU$7Mps;',
-    //password: 'mypassword',
-    database: 'student_app',
-  },
-  table: 'sessions',
+  // adapter: 'connect-mysql',
+  // config: {
+  //   user: 'root',
+  //   password: 'Yw9{V"NwRU$7Mps;',
+  //   //password: 'mypassword',
+  //   database: 'student_app',
+  // },
+  // table: 'sessions',
+  adapter: '@sailshq/connect-redis',
+  url: 'redis://h:pcc021680b44036d308d747271e6ead7d74baa95881e80b2b34eaef5800d3cc83@ec2-52-7-238-54.compute-1.amazonaws.com:23379',
 
   /***************************************************************************
   *                                                                          *

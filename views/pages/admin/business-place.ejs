@@ -48,6 +48,54 @@
             </tbody>
         </table>
     </div>
+  <div class="container">
+    <div class="page__sub-title">
+      <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()">Back</button>
+      Business Places Dictionary
+      <% if(isSuperAdmin){ %>
+        <button class="btn btn-outline-info ml-2 float-right" @click="onAddNew()">Add</button>
+      <% } %>
+    </div>
+    <table style="width: 100%;">
+      <thead>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Legal Address</th>
+      <th>Physical Address</th>
+      <% if(isSuperAdmin){ %>
+        <th></th>
+      <% } %>
+      </thead>
+      <tbody>
+
+      <% items.forEach(function(item){ %>
+      <tr>
+
+        <td><%= item.id %></td>
+        <td title="<%= item.name %>"><%= item.name %></td>
+        <td title="<%= item.description %>"><%= item.description %></td>
+        <td :title="getAddressView(<%= JSON.stringify(item.legalAddress) %>)">
+          {{ getAddressView(<%= JSON.stringify(item.legalAddress) %>) }}
+        </td>
+        <td :title="getAddressView(<%= JSON.stringify(item.physicalAddress) %>)">
+          {{ getAddressView(<%= JSON.stringify(item.physicalAddress) %>) }}
+        </td>
+
+        <% if(isSuperAdmin){ %>
+          <td>
+            <div class="manage_buttons-wrapper">
+              <button class="btn btn-outline-info ml-2" @click="onEdit(<%= JSON.stringify(item) %>)">Edit</button>
+              <button class="btn btn-outline-danger ml-2" @click="remove(<%= item.id %>)">Remove</button>
+
+            </div>
+          </td>
+        <% } %>
+        <% }); %>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
     <modal class="example-modal" v-if="modal==='edit-modal'" @close="closeExampleModal()" v-cloak>
         <div class="modal-header">

@@ -24,6 +24,7 @@ module.exports.routes = {
   'GET /admin/places':        { action: 'admin/view-business-place' },
   'GET /admin/users':                      { action: 'admin/view-users' },
   'GET /admin/users/place/:placeId':        { action: 'admin/view-users' },
+  'GET /actions/marks':              { action: 'actions/view-mark-make' },
 
   'GET /faq':                { action:   'view-faq' },
   'GET /legal/terms':        { action:   'legal/view-terms' },

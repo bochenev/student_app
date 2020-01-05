@@ -50,8 +50,8 @@ module.exports.datastores = {
     ***************************************************************************/
      adapter: 'sails-mysql',
      //prod
-      //      url: 'mysql://bab273655e95f9:25f4b0c2@us-cdbr-iron-east-05.cleardb.net/heroku_09c85d004cdf1fc',
-     url: 'mysql://root:Yw9{V"NwRU$7Mps;@localhost:3306/student_app',
+    url: 'mysql://bab273655e95f9:25f4b0c2@us-cdbr-iron-east-05.cleardb.net/heroku_09c85d004cdf1fc',
+    // url: 'mysql://dev:Yw9{V"NwRU$7Mps;@localhost:3306/student_app',
     // url: 'mysql://root:mypassword@localhost:3306/student_app',
   },
 

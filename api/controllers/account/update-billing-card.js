@@ -59,6 +59,7 @@ module.exports = {
       token: inputs.stripeToken || '',
     }).timeout(5000).retry();
 
+    +
     // Update (or clear) the card info we have stored for this user in our database.
     // > Remember, never store complete card numbers-- only the last 4 digits + expiration!
     // > Storing (or even receiving) complete, unencrypted card numbers would require PCI
@@ -66,7 +67,8 @@ module.exports = {
     await User.updateOne({ id: this.req.me.id })
     .set({
       stripeCustomerId,
-      hasBillingCard: inputs.stripeToken ? true : false,
+      hasBillingCard:
+        inputs.stripeToken ? true : false,
       billingCardBrand: inputs.stripeToken ? inputs.billingCardBrand : '',
       billingCardLast4: inputs.stripeToken ? inputs.billingCardLast4 : '',
       billingCardExpMonth: inputs.stripeToken ? inputs.billingCardExpMonth : '',

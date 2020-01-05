@@ -1,4 +1,4 @@
-module.exports = {
+ module.exports = {
 
 
   friendlyName: 'View users',
@@ -47,6 +47,7 @@ module.exports = {
       businessPlace,
       isSuperAdmin: this.req.me.isSuperAdmin
     };
+
 
   }
 
