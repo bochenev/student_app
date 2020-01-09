@@ -1,0 +1,42 @@
+<div id="mark-make" v-cloak>
+
+  <div class="container">
+    <div class="page__sub-title">
+      <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()">Back</button>
+      <% if(subject){ %>
+        for <%= subject %>
+      <% } %>
+    </div>
+    <table style="width: 100%;">
+      <thead>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Marks</th>
+      <% if(isSuperAdmin){ %>
+        <th></th>
+      <% } %>
+      </thead>
+      <tbody>
+      <% if(businessPlace.users){ %>
+
+        <% businessPlace.users.forEach(function(item){ %>
+          <tr>
+            <td title="<%= item.id %>"><%= item.id %></td>
+            <td title="<%= item.fullName %>"><%= item.fullName %></td>
+            <td >
+              <select  class="custom-select">
+                <% marks.forEach(function(mark){ %>
+                <option value="<%=mark.id%>"><%=mark.name%></option>
+                  <% }) %>
+              </select>
+            </td>
+          </tr>
+          <% }); %>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+<%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>
