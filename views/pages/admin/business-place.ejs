@@ -1,20 +1,19 @@
 <div id="business-place" v-cloak>
-
     <div class="container">
         <div class="page__sub-title">
-            <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()">Back</button>
-            Business Places Dictionary
+            <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()"><%= i18n("Back") %></button>
+            <%= i18n("Business Places") %>
             <% if(isSuperAdmin){ %>
-                <button class="btn btn-outline-info ml-2 float-right" @click="onAddNew()">Add</button>
+                <button class="btn btn-outline-info ml-2 float-right" @click="onAddNew()"><%= i18n("Add") %></button>
             <% } %>
         </div>
         <table style="width: 100%;">
             <thead>
             <th>ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Legal Address</th>
-            <th>Physical Address</th>
+            <th><%= i18n("Name") %></th>
+            <th><%= i18n("Description") %></th>
+            <th><%= i18n("Legal Address") %></th>
+            <th><%= i18n("Physical Address") %></th>
             <% if(isSuperAdmin){ %>
                 <th></th>
             <% } %>
@@ -25,7 +24,7 @@
             <tr>
 
                 <td><%= item.id %></td>
-                <td title="<%= item.name %>"><%= item.name %></td>
+                <td title="<%= item.name %>"><a href="/place/<%= item.id %>"><%= item.name %></a></td>
                 <td title="<%= item.description %>"><%= item.description %></td>
                 <td :title="getAddressView(<%= JSON.stringify(item.legalAddress) %>)">
                     {{ getAddressView(<%= JSON.stringify(item.legalAddress) %>) }}
@@ -37,8 +36,8 @@
                 <% if(isSuperAdmin){ %>
                     <td>
                         <div class="manage_buttons-wrapper">
-                            <button class="btn btn-outline-info ml-2" @click="onEdit(<%= JSON.stringify(item) %>)">Edit</button>
-                            <button class="btn btn-outline-danger ml-2" @click="remove(<%= item.id %>)">Remove</button>
+                            <button class="btn btn-outline-info ml-2" @click="onEdit(<%= JSON.stringify(item) %>)"><%= i18n("Edit") %></button>
+                            <button class="btn btn-outline-danger ml-2" @click="remove(<%= item.id %>)"><%= i18n("Remove") %></button>
 
                         </div>
                     </td>
@@ -48,55 +47,6 @@
             </tbody>
         </table>
     </div>
-  <div class="container">
-    <div class="page__sub-title">
-      <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()">Back</button>
-      Business Places Dictionary
-      <% if(isSuperAdmin){ %>
-        <button class="btn btn-outline-info ml-2 float-right" @click="onAddNew()">Add</button>
-      <% } %>
-    </div>
-    <table style="width: 100%;">
-      <thead>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Legal Address</th>
-      <th>Physical Address</th>
-      <% if(isSuperAdmin){ %>
-        <th></th>
-      <% } %>
-      </thead>
-      <tbody>
-
-      <% items.forEach(function(item){ %>
-      <tr>
-
-        <td><%= item.id %></td>
-        <td title="<%= item.name %>"><%= item.name %></td>
-        <td title="<%= item.description %>"><%= item.description %></td>
-        <td :title="getAddressView(<%= JSON.stringify(item.legalAddress) %>)">
-          {{ getAddressView(<%= JSON.stringify(item.legalAddress) %>) }}
-        </td>
-        <td :title="getAddressView(<%= JSON.stringify(item.physicalAddress) %>)">
-          {{ getAddressView(<%= JSON.stringify(item.physicalAddress) %>) }}
-        </td>
-
-        <% if(isSuperAdmin){ %>
-          <td>
-            <div class="manage_buttons-wrapper">
-              <button class="btn btn-outline-info ml-2" @click="onEdit(<%= JSON.stringify(item) %>)">Edit</button>
-              <button class="btn btn-outline-danger ml-2" @click="remove(<%= item.id %>)">Remove</button>
-
-            </div>
-          </td>
-        <% } %>
-        <% }); %>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-
     <modal class="example-modal" v-if="modal==='edit-modal'" @close="closeExampleModal()" v-cloak>
         <div class="modal-header">
             <h2 class="modal-title">Business Place</h2>
@@ -105,57 +55,57 @@
         <div class="modal-body">
             <form id="edit-place">
                 <div class="form-group">
-                    <strong>Name:</strong>
+                    <strong><%= i18n("Name") %>:</strong>
                     <input name="name" class="form-control" :class="[formErrors.fullName ? 'is-invalid' : '']"
                            v-model.trim="formData.name">
-                    <div class="invalid-feedback" v-if="formErrors.fullName">Please enter a valid Full Name</div>
+                    <div class="invalid-feedback" v-if="formErrors.fullName"><%= i18n("Please enter a valid Full Name") %></div>
                 </div>
                 <div class="form-group">
-                    <strong>Description:</strong>
+                    <strong><%= i18n("Description") %>:</strong>
                     <textarea name="description" class="form-control" :class="[formErrors.fullName ? 'is-invalid' : '']"
                               v-model.trim="formData.description">
                     </textarea>
-                    <div class="invalid-feedback" v-if="formErrors.fullName">Please enter a valid Full Name</div>
+                    <div class="invalid-feedback" v-if="formErrors.fullName"><%= i18n("Please enter a valid Description") %></div>
                 </div>
 
-                <h5 class="section-heading">Legal Address</h5>
+                <h5 class="section-heading"><%= i18n("Legal Address") %></h5>
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <strong>Country:</strong>
+                            <strong><%= i18n("Country") %>:</strong>
                             <input name="legal-country" class="form-control" :class="[formErrors.legalAddress ? 'is-invalid' : '']"
                                    v-on:input="formData.legalAddress = {...formData.legalAddress, country:  $event.target.value}"
                                    v-bind:value="formData.legalAddress && formData.legalAddress.country">
-                            <div class="invalid-feedback" v-if="formErrors.legalAddress">Please enter a valid Country</div>
+                            <div class="invalid-feedback" v-if="formErrors.legalAddress"><%= i18n("Please enter a valid Country") %></div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <strong>City:</strong>
+                            <strong><%= i18n("City") %>:</strong>
                             <input name="city" class="form-control" :class="[formErrors.legalAddress ? 'is-invalid' : '']"
                                    v-on:input="formData.legalAddress = {...formData.legalAddress, city:  $event.target.value}"
                                    v-bind:value="formData.legalAddress && formData.legalAddress.city">
-                            <div class="invalid-feedback" v-if="formErrors.legalAddress">Please enter a valid City</div>
+                            <div class="invalid-feedback" v-if="formErrors.legalAddress"><%= i18n("Please enter a valid City") %></div>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <strong>Address:</strong>
+                    <strong><%= i18n("Address") %>:</strong>
                     <input name="address1" class="form-control" :class="[formErrors.legalAddress ? 'is-invalid' : '']"
                            v-on:input="formData.legalAddress = {...formData.legalAddress, address1:  $event.target.value}"
                            v-bind:value="formData.legalAddress && formData.legalAddress.address1">
-                    <div class="invalid-feedback" v-if="formErrors.legalAddress">Please enter a valid Address</div>
+                    <div class="invalid-feedback" v-if="formErrors.legalAddress"><%= i18n("Please enter a valid Address") %></div>
 
                 </div>
                 <div class="form-group">
-                    <strong>Second Address:</strong>
+                    <strong><%= i18n("Second Address") %>:</strong>
                     <input name="address2" class="form-control" :class="[formErrors.address ? 'is-invalid' : '']"
                            v-on:input="formData.address = {...formData.address, address2:  $event.target.value}"
                            v-bind:value="formData.address && formData.address.address2">
-                    <div class="invalid-feedback" v-if="formErrors.address">Please enter a valid Second Address</div>
+                    <div class="invalid-feedback" v-if="formErrors.address"><%= i18n("Please enter a valid Second Address") %></div>
                 </div>
 
-                <h5 class="section-heading">Physical Address</h5>
+                <h5 class="section-heading"><%= i18n("Physical Address") %></h5>
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
@@ -163,7 +113,7 @@
                             <input name="legal-country" class="form-control" :class="[formErrors.physicalAddress ? 'is-invalid' : '']"
                                    v-on:input="formData.physicalAddress = {...formData.physicalAddress, country:  $event.target.value}"
                                    v-bind:value="formData.physicalAddress && formData.physicalAddress.country">
-                            <div class="invalid-feedback" v-if="formErrors.physicalAddress">Please enter a valid Country</div>
+                            <div class="invalid-feedback" v-if="formErrors.physicalAddress"><%= i18n("Please enter a valid Country") %></div>
                         </div>
                     </div>
                     <div class="col">
@@ -172,7 +122,7 @@
                             <input name="city" class="form-control" :class="[formErrors.physicalAddress ? 'is-invalid' : '']"
                                    v-on:input="formData.physicalAddress = {...formData.physicalAddress, city:  $event.target.value}"
                                    v-bind:value="formData.physicalAddress && formData.physicalAddress.city">
-                            <div class="invalid-feedback" v-if="formErrors.physicalAddress">Please enter a valid City</div>
+                            <div class="invalid-feedback" v-if="formErrors.physicalAddress"><%= i18n("Please enter a valid City") %></div>
                         </div>
                     </div>
                 </div>
@@ -181,26 +131,23 @@
                     <input name="address1" class="form-control" :class="[formErrors.physicalAddress ? 'is-invalid' : '']"
                            v-on:input="formData.physicalAddress = {...formData.address, address1:  $event.target.value}"
                            v-bind:value="formData.physicalAddress && formData.physicalAddress.address1">
-                    <div class="invalid-feedback" v-if="formErrors.physicalAddress">Please enter a valid Address</div>
+                    <div class="invalid-feedback" v-if="formErrors.physicalAddress"><%= i18n("Please enter a valid Address") %></div>
                 </div>
                 <div class="form-group">
                     <strong>Second Address:</strong>
                     <input name="address2" class="form-control" :class="[formErrors.address ? 'is-invalid' : '']"
                            v-on:input="formData.address = {...formData.address, address2:  $event.target.value}"
                            v-bind:value="formData.address && formData.address.address2">
-                    <div class="invalid-feedback" v-if="formErrors.address">Please enter a valid Second Address</div>
+                    <div class="invalid-feedback" v-if="formErrors.address"><%= i18n("Please enter a valid Second Address") %></div>
                 </div>
 
-                <p class="text-danger" v-if="cloudError">An error occured while processing your request. Please check your information and try again,
-                    or <a href="/contact">contact support</a> if the error persists.</p>
+                <p class="text-danger" v-if="cloudError"><%= i18n("An error occurred") %></p>
             </form>
         </div>
         <div class="modal-footer flex-row-reverse justify-content-between">
-            <button type="button" class="btn btn-outline-success ml-2 float-right" @click="formSubmit($event)">Save</button>
-            <button type="button" data-dismiss="modal" class="btn btn-outline-dark ml-2 float-left" @click="onCancel()">Cancel</button>
+            <button type="button" class="btn btn-outline-success ml-2 float-right" @click="formSubmit($event)"><%= i18n("Save") %></button>
+            <button type="button" data-dismiss="modal" class="btn btn-outline-dark ml-2 float-left" @click="onCancel()"><%= i18n("Cancel") %></button>
         </div>
     </modal>
-
-
 </div>
 <%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>

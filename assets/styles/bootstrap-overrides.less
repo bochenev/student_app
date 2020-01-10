@@ -28,6 +28,15 @@ img {
   -webkit-appearance: none;
 }
 
+.chips-container {
+  .btn {
+    border-radius: 15px;
+    &+.btn {
+      margin-left: 5px;
+    }
+  }
+}
+
 // Custom link styles within bodies of text
 h1, h2, h3, h4, h5, h6, p, li, blockquote, label {
   >a:not(.btn), small >a:not(.btn) {
@@ -159,4 +168,11 @@ blockquote {
       }
     }
   }
+}
+
+.section-heading {
+  margin-top: 25px;
+  padding-bottom: 10px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid @border-lt-gray;
 }

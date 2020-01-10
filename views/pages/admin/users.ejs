@@ -3,19 +3,19 @@
 
     <div class="container">
         <div class="page__sub-title">
-            <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()">Back</button>
-            Users
+            <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()"><%= i18n("Back") %></button>
+            <%= i18n("Users") %>
             <% if(businessPlace){ %>
-                for <%= businessPlace.name %>
+                <%= i18n("for") %> <%= businessPlace.name %>
             <% } %>
         </div>
         <table style="width: 100%;">
             <thead>
             <th>ID</th>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Business Place</th>
-            <th>Group</th>
+            <th><%= i18n("Name") %></th>
+            <th><%= i18n("Role") %></th>
+            <th><%= i18n("Business Place") %></th>
+            <th><%= i18n("Groups") %></th>
 
             <% if(isSuperAdmin){ %>
                 <th></th>
@@ -47,8 +47,8 @@
                 <% if(isSuperAdmin){ %>
                     <td>
                         <div class="manage_buttons-wrapper">
-                            <button class="btn btn-outline-info ml-2" @click="onEdit(<%= JSON.stringify(item) %>)">Edit</button>
-                            <button class="btn btn-outline-danger ml-2" @click="remove(<%= item.id %>)">Remove</button>
+                            <button class="btn btn-outline-info ml-2" @click="onEdit(<%= JSON.stringify(item) %>)"><%= i18n("Edit") %></button>
+                            <button class="btn btn-outline-danger ml-2" @click="remove(<%= item.id %>)"><%= i18n("Remove") %></button>
                         </div>
                     </td>
                 <% } %>
@@ -157,8 +157,8 @@
 
         </div>
         <div class="modal-footer flex-row-reverse justify-content-between">
-            <button type="button" class="btn btn-outline-success ml-2 float-right" @click="formSubmit($event)">Save</button>
-            <button type="button" data-dismiss="modal" class="btn btn-outline-dark ml-2 float-left" @click="onCancel()">Cancel</button>
+            <button type="button" class="btn btn-outline-success ml-2 float-right" @click="formSubmit($event)"><%= i18n("Save") %></button>
+            <button type="button" data-dismiss="modal" class="btn btn-outline-dark ml-2 float-left" @click="onCancel()"><%= i18n("Cancel") %></button>
         </div>
     </modal>
 </div>

@@ -87,7 +87,5 @@ parasails.registerPage('admin', {
 
         document.addEventListener('click', outsideClickListener)
     }
-
-
   }
 });

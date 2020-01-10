@@ -5,7 +5,7 @@
 } %><!DOCTYPE html>
 <html>
   <head>
-    <title>Global Marks Accounting</title>
+    <title><%= i18n("Global Marks Accounting") %></title>
 
     <% /* Viewport tag for sensible mobile support */ %>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -47,10 +47,10 @@
   <body>
     <div id="page-wrap">
       <header id="page-header" class="navbar navbar-expand-sm navbar-dark bg-dark flex-column flex-md-row justify-content-between">
-        <a class="navbar-brand mr-0" href="/"><img class="logo" alt="Global Marks Accounting logo" src="/images/logo.svg"/></a>
+        <a class="navbar-brand mr-0" href="/"><img class="logo" alt="<%= i18n("Global Marks Accounting") %> logo" src="/images/logo.svg"/></a>
          <% if(me) { %>
             <span class="h2 user-name">
-              Welcome <%= me.fullName%>
+              <%= i18n("Welcome") %> <%= me.fullName%>
               <% if(me.role) { %>
                 (<%= me.role.name %>)
               <% } %>
@@ -114,7 +114,7 @@
           <small class="nav-item"><a class="nav-link text-info" href="/logout">Sign out</a></small>
           <% } %>
         </div>
-        <small class="copy">Copyright &copy; 2019 <a target="_blank" href="https://global-Marks-accounting.com">The Global Marks Accounting</a>. <br class="xs-only"/>All rights reserved.</small>
+        <small class="copy">Copyright &copy; 2019 <a target="_blank" href="https://global-Marks-accounting.com"><%= i18n("Global Marks Accounting") %></a>. <br class="xs-only"/>All rights reserved.</small>
       </footer>
     </div>
 
@@ -167,6 +167,7 @@
     <script src="/js/pages/admin/roles.page.js"></script>
     <script src="/js/pages/admin/subjects.page.js"></script>
     <script src="/js/pages/admin/users.page.js"></script>
+    <script src="/js/pages/businessPlace.page.js"></script>
     <script src="/js/pages/contact.page.js"></script>
     <script src="/js/pages/dashboard/admin.page.js"></script>
     <script src="/js/pages/entrance/confirmed-email.page.js"></script>

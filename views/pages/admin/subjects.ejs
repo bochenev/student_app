@@ -2,16 +2,20 @@
 
   <div class="container">
     <div class="page__sub-title">
-      <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()">Back</button>
-      Subjects Dictionary
-      <% if(isSuperAdmin){ %>
-        <button class="btn btn-outline-info mr-10 float-right" @click="onAddNew()">Add</button>
+      <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()"><%= i18n("Back") %></button>
+      <%= i18n("Subjects") %>
+      <% if(businessPlace){ %>
+        <%= i18n("for") %> <%= businessPlace.name %>
+      <% } %>
+
+    <% if(isSuperAdmin){ %>
+        <button class="btn btn-outline-info mr-10 float-right" @click="onAddNew()"><%= i18n("Add") %></button>
       <% } %>
     </div>
     <table style="width: 100%;">
       <thead>
       <th>ID</th>
-      <th>Name</th>
+      <th><%= i18n("Name") %></th>
       <% if(isSuperAdmin){ %>
         <th></th>
       <% } %>
@@ -25,8 +29,8 @@
         </td>
         <td>
           <div class="manage_buttons-wrapper">
-            <button class="btn btn-outline-info ml-2" @click="save()">Save</button>
-            <button class="btn btn-outline-dark ml-2" @click="onCancel()">Cancel</button>
+            <button class="btn btn-outline-info ml-2" @click="save()"><%= i18n("Save") %></button>
+            <button class="btn btn-outline-dark ml-2" @click="onCancel()"><%= i18n("Cancel") %></button>
           </div>
         </td>
       </tr>
@@ -48,12 +52,12 @@
           <td>
             <div class="manage_buttons-wrapper">
               <template v-if="typeof editableItemsMap[<%= item.id %>] !== 'object'">
-                <button class="btn btn-outline-info ml-2" @click="onEdit(<%= JSON.stringify(item) %>)">Edit</button>
-                <button class="btn btn-outline-danger ml-2" @click="remove(<%= item.id %>)">Remove</button>
+                <button class="btn btn-outline-info ml-2" @click="onEdit(<%= JSON.stringify(item) %>)"><%= i18n("Edit") %></button>
+                <button class="btn btn-outline-danger ml-2" @click="remove(<%= item.id %>)"><%= i18n("Remove") %></button>
               </template>
               <template v-else>
-                <button class="btn btn-outline-success ml-2" @click="update(<%= item.id %>)">Save</button>
-                <button class="btn btn-outline-dark ml-2" @click="onCancel(<%= item.id %>)">Cancel</button>
+                <button class="btn btn-outline-success ml-2" @click="update(<%= item.id %>)"><%= i18n("Save") %></button>
+                <button class="btn btn-outline-dark ml-2" @click="onCancel(<%= item.id %>)"><%= i18n("Cancel") %></button>
               </template>
             </div>
           </td>

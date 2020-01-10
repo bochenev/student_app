@@ -1,0 +1,43 @@
+<div id="business-place" v-cloak>
+    <div class="container">
+        <div class="page__sub-title">
+            <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()"><%= i18n("Back") %></button>
+            <%= businessPlace.name %>
+        </div>
+        <div class="row">
+            <div class="col">
+                <fieldset>
+                    <h5><%= i18n("legal address") %></h5>
+                    {{ getAddressView(<%= JSON.stringify(businessPlace.legalAddress) %>) }}
+                </fieldset>
+            </div>
+
+            <div class="col">
+                <fieldset>
+                    <h5><%= i18n("physical address") %></h5>
+                    {{ getAddressView(<%= JSON.stringify(businessPlace.physicalAddress) %>) }}
+                </fieldset>
+            </div>
+
+        </div>
+
+        <h5 class="section-heading"><%= i18n("subjects") %></h5>
+
+        <div class="chips-container" role="group" aria-label="Basic example">
+            <% businessPlace.subjects.forEach(function(item){ %>
+            <button type="button" class="btn btn-chip btn-outline-info"><%=item.name%></button>
+            <% }) %>
+        </div>
+
+
+        <h5 class="section-heading"><%= i18n("groups") %></h5>
+
+        <div class="chips-container" role="group" aria-label="Basic example">
+            <% businessPlace.groups.forEach(function(item){ %>
+            <button type="button" class="btn btn-chip btn-outline-info"><%=item.name%></button>
+            <% }) %>
+        </div>
+
+    </div>
+</div>
+<%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>

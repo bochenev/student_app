@@ -1,17 +1,17 @@
 <div id="roles" v-cloak>
     <div class="container">
         <div class="page__sub-title">
-            <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()">Back</button>
-            Roles Dictionary
+            <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()"><%= i18n("Back") %></button>
+            <%= i18n("Role") %>
             <% if(false){ %>
-                <button class="btn btn-outline-info ml-2 float-right" @click="onAddNew()">Add</button>
+                <button class="btn btn-outline-info ml-2 float-right" @click="onAddNew()"><%= i18n("Add") %></button>
             <% } %>
         </div>
         <table style="width: 100%;">
             <thead>
             <th>ID</th>
-            <th>Name</th>
-            <th>Description</th>
+            <th><%= i18n("Name") %></th>
+            <th><%= i18n("Description") %></th>
             <% if(isSuperAdmin){ %>
                 <th></th>
             <% } %>
@@ -29,8 +29,8 @@
 
                 <td>
                     <div class="manage_buttons-wrapper">
-                        <button class="btn btn-outline-info ml-2" @click="save()">Save</button>
-                        <button class="btn btn-outline-dark ml-2" @click="onCancel()">Cancel</button>
+                        <button class="btn btn-outline-info ml-2" @click="save()"><%= i18n("Save") %></button>
+                        <button class="btn btn-outline-dark ml-2" @click="onCancel()"><%= i18n("Cancel") %></button>
                     </div>
                 </td>
             </tr>
@@ -56,12 +56,12 @@
                     <td>
                         <div class="manage_buttons-wrapper">
                             <template v-if="typeof editableItemsMap[<%= role.id %>] !== 'object'">
-                                <button class="btn btn-outline-info ml-2" @click="onEdit(<%= JSON.stringify(role) %>)">Edit</button>
-                                <button class="btn btn-outline-danger ml-2" @click="remove(<%= role.id %>)">Remove</button>
+                                <button class="btn btn-outline-info ml-2" @click="onEdit(<%= JSON.stringify(role) %>)"><%= i18n("Edit") %></button>
+                                <button class="btn btn-outline-danger ml-2" @click="remove(<%= role.id %>)"><%= i18n("Remove") %></button>
                             </template>
                             <template v-else>
-                                <button class="btn btn-outline-success ml-2" @click="update(<%= role.id %>)">Save</button>
-                                <button class="btn btn-outline-dark ml-2" @click="onCancel(<%= role.id %>)">Cancel</button>
+                                <button class="btn btn-outline-success ml-2" @click="update(<%= role.id %>)"><%= i18n("Save") %></button>
+                                <button class="btn btn-outline-dark ml-2" @click="onCancel(<%= role.id %>)"><%= i18n("Cancel") %></button>
                             </template>
                         </div>
                     </td>

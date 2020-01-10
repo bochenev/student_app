@@ -58,7 +58,7 @@
     <div v-if="isBillingEnabled && me.hasBillingCard">
       <div class="row">
         <div class="col-3">Credit card:</div>
-        <div class="col">{{me.billingCardBrand}} ending in <strong>{{me.billingCardLast4}}</strong> <a class="remove-button ml-2" @click="clickRemoveCardButton()">Remove</a></div>
+        <div class="col">{{me.billingCardBrand}} ending in <strong>{{me.billingCardLast4}}</strong> <a class="remove-button ml-2" @click="clickRemoveCardButton()"><%= i18n("Remove") %></a></div>
       </div>
       <div class="row">
         <div class="col-3">Expiration:</div>
@@ -89,7 +89,7 @@
       </div>
       <div class="modal-footer">
         <button data-dismiss="modal" class="btn btn-outline-secondary mr-1">Nevermind</button>
-        <ajax-button type="submit" :syncing="syncingRemoveCard" class="btn btn-danger ml-1">Remove</ajax-button>
+        <ajax-button type="submit" :syncing="syncingRemoveCard" class="btn btn-danger ml-1"><%= i18n("Remove") %></ajax-button>
       </div>
     </ajax-form>
   </modal>

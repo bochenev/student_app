@@ -1,111 +1,111 @@
 <div id="admin">
-  <div class="container">
-    <div class="card-deck">
-      <div class="card border-dark mb-3" style="flex: 1;">
-        <h5 class="card-header">Dictionaries</h5>
-        <div class="card-body">
-          <p class="card-text">
+    <div class="container">
+        <div class="card-deck">
+            <div class="card border-dark mb-3" style="flex: 1;">
+                <h5 class="card-header"><%= i18n("Dictionaries") %></h5>
+                <div class="card-body">
+                    <p class="card-text">
 
-          <div class="list-group list-group-flush">
-            <a class="list-group-item list-group-item-action " href="/admin/users"><%= actionName %> Users</a>
-            <a class="list-group-item list-group-item-action " href="/admin/roles"><%= actionName %> Roles</a>
-            <a class="list-group-item list-group-item-action " href="/admin/groups"><%= actionName %> Groups</a>
-            <a class="list-group-item list-group-item-action " href="/admin/marks"><%= actionName %> Marks</a>
-            <a class="list-group-item list-group-item-action " href="/admin/subjects"><%= actionName %> Subjects</a>
-            <a class="list-group-item list-group-item-action " href="/admin/places"><%= actionName %> Business
-              Places</a>
-          </div>
-
-          </p>
-        </div>
-        <div class="card-footer text-muted">
-          <a type="button" class="btn btn-outline-info mr-10 back-left" href="/actions/marks">Оценки</a>
-        </div>
-      </div>
-      <div class="card border-dark mb-3" style="flex: 3;">
-        <h5 class="card-header">Business Places</h5>
-        <div class="card-body">
-          <div class="card-text">
-            <div class="row">
-              <div class="col-md-4">
-                <div id="search-dropdown-places" class="form-group">
-                  <input name="searchPlace" class="form-control"
-                         @click="hideOnClickOutside()"
-                         placeholder="Type to search business place"
-                         v-on:input="searchExisting($event)"
-                  >
-                  <div class="dropdown-menu" :class="[foundList.length ? 'show' : '']">
-                    <div v-for="item in foundList"
-                         class="dropdown-item"
-                         @click="onSelectPlace(item)"
-                    >
-                      {{item.name}}<br/>
-                      <div class="dropdown-sub-item">{{item.description}}</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="list-group list-group-flush">
-                  <a class="list-group-item list-group-item-action pointer-item"
-                     v-for="place in paginatedList.list" @click="onSelectPlace(place)"
-                  >
-                    {{place.name}}
-                  </a>
-                </div>
-                <div>
-                  <button class="btn btn btn-link ml-2 float-left"
-                          v-if="paginatedList.previous"
-                          @click="getPrevious()"
-                  >
-                    Previous
-                  </button>
-                  <button class="btn btn btn-link ml-2 float-left"
-                          v-if="paginatedList.hasMore"
-                          @click="getMore()"
-                  >
-                    Next
-                  </button>
-                </div>
-              </div>
-              <div class="col-md-8">
-                <div class="card" style="width: 100%" :class="[!Object.keys(selectedPlace).length ? 'disabled' : '']">
-                  <div class="card-body">
-                    <h5 class="card-title">{{selectedPlace.name}}</h5>
-
-                    <div class="card-text">
-                      <div class="row">
-                        <div class="col-md-8">
-                          <a :href="'/admin/groups/place/' + selectedPlace.id">Groups</a>:
-                        </div>
-                        <div class="col-md-4">
-                          {{selectedPlace.groups ? selectedPlace.groups.length : 'N/A'}}
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-8">
-                          <a :href="'/admin/users/place/' + selectedPlace.id">Users</a>:
-                        </div>
-                        <div class="col-md-4">
-                          {{selectedPlace.users ? selectedPlace.users.length : 'N/A'}}
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-8">
-                          Subjects:
-                        </div>
-                        <div class="col-md-4">
-                          {{selectedPlace.users ? selectedPlace.users.length : 'N/A'}}
-                        </div>
-                      </div>
+                    <div class="list-group list-group-flush">
+                        <a class="list-group-item list-group-item-action " href="/admin/users"><%= i18n("Users") %></a>
+                        <a class="list-group-item list-group-item-action " href="/admin/roles"><%= i18n("Roles") %></a>
+                        <a class="list-group-item list-group-item-action " href="/admin/groups"><%= i18n("groups") %></a>
+                        <a class="list-group-item list-group-item-action " href="/admin/marks"><%= i18n("Marks") %></a>
+                        <a class="list-group-item list-group-item-action " href="/admin/subjects"><%= i18n("subjects") %></a>
+                        <a class="list-group-item list-group-item-action "
+                           href="/admin/places"><%= i18n("Business Places") %> </a>
                     </div>
 
-                  </div>
+                    </p>
                 </div>
-              </div>
+                <div class="card-footer text-muted">
+                    <a type="button" class="btn btn-outline-info mr-10 back-left" href="/actions/marks"><%= i18n("Marks") %></a>
+                </div>
             </div>
-          </div>
+            <div class="card border-dark mb-3" style="flex: 3;">
+                <h5 class="card-header"><%= i18n("Business Places") %></h5>
+                <div class="card-body">
+                    <div class="card-text">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div id="search-dropdown-places" class="form-group">
+                                    <input name="searchPlace" class="form-control"
+                                           @click="hideOnClickOutside()"
+                                           placeholder="<%= i18n("Type to search business place") %>"
+                                           v-on:input="searchExisting($event)"
+                                    >
+                                    <div class="dropdown-menu" :class="[foundList.length ? 'show' : '']">
+                                        <div v-for="item in foundList"
+                                             class="dropdown-item"
+                                             @click="onSelectPlace(item)"
+                                        >
+                                            {{item.name}}<br/>
+                                            <div class="dropdown-sub-item">{{item.description}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-group list-group-flush">
+                                    <a class="list-group-item list-group-item-action pointer-item"
+                                       v-for="place in paginatedList.list" @click="onSelectPlace(place)"
+                                    >
+                                        {{place.name}}
+                                    </a>
+                                </div>
+                                <div>
+                                    <button class="btn btn btn-link ml-2 float-left"
+                                            v-if="paginatedList.previous"
+                                            @click="getPrevious()"
+                                    >
+                                        <%= i18n("Previous") %>
+                                    </button>
+                                    <button class="btn btn btn-link ml-2 float-left"
+                                            v-if="paginatedList.hasMore"
+                                            @click="getMore()"
+                                    >
+                                        <%= i18n("Next") %>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card" style="width: 100%" :class="[!Object.keys(selectedPlace).length ? 'disabled' : '']">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{selectedPlace.name}}</h5>
+
+                                        <div class="card-text">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <a :href="'/admin/groups/place/' + selectedPlace.id"><%= i18n("groups") %></a>:
+                                                </div>
+                                                <div class="col-md-4">
+                                                    {{selectedPlace.groups ? selectedPlace.groups.length : 'N/A'}}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <a :href="'/admin/users/place/' + selectedPlace.id"><%= i18n("Users") %></a>:
+                                                </div>
+                                                <div class="col-md-4">
+                                                    {{selectedPlace.users ? selectedPlace.users.length : 'N/A'}}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                  <a :href="'/admin/subjects/place/' + selectedPlace.id"><%= i18n("Subjects") %></a>:
+                                                </div>
+                                                <div class="col-md-4">
+                                                    {{selectedPlace.subjects ? selectedPlace.subjects.length : 'N/A'}}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 <%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>
