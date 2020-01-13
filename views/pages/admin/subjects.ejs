@@ -4,12 +4,16 @@
     <div class="page__sub-title">
       <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()"><%= i18n("Back") %></button>
       <%= i18n("Subjects") %>
-      <% if(businessPlace){ %>
+      <% if(businessPlace && businessPlace.id){ %>
         <%= i18n("for") %> <%= businessPlace.name %>
       <% } %>
 
     <% if(isSuperAdmin){ %>
-        <button class="btn btn-outline-info mr-10 float-right" @click="onAddNew()"><%= i18n("Add") %></button>
+        <% if(businessPlace && businessPlace.id){ %>
+          <a class="btn btn-outline-info ml-auto float-right" href="/place/<%=businessPlace.id%>"><%= i18n("Add") %></a>
+        <% } else {%>
+          <button class="btn btn-outline-info ml-auto float-right" @click="onAddNew()"><%= i18n("Add") %></button>
+        <% } %>
       <% } %>
     </div>
     <table style="width: 100%;">

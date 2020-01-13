@@ -7,10 +7,31 @@
 
     <h5 class="section-heading"><%= i18n("subjects") %></h5>
 
+
     <div class="chips-container" role="group" aria-label="Basic example">
       <% group.subjects.forEach(function(item){ %>
-      <button type="button" class="btn btn-chip btn-outline-info"><%=item.name%></button>
+        <span class="chip">
+                    <button type="button" class="btn btn-chip btn-outline-info"><%= item.name %></button>
+          <% if (isAllowEdit) { %>
+            <div class="chip-remove"
+                 @click="removeSubject(<%= group.id %>, <%= item.id %>)">+</div>
+          <% } %>
+        </span>
       <% }) %>
+
+      <% if (isAllowEdit) { %>
+        <button class="btn btn-chip chip btn-outline-success dropdown-toggle ml-10" type="button"
+                :class="[<%= availableSubjects.length === 0 %> ? 'disabled' : '']"
+                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= i18n("Add") %>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a v-for="subject in <%= JSON.stringify(availableSubjects) %>"
+             class="dropdown-item" href="#"
+             @click="appendSubject(<%= group.id %>, subject.id)"
+          >{{subject.name}}</a>
+        </div>
+      <% } %>
     </div>
 
 

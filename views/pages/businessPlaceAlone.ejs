@@ -35,7 +35,7 @@
             <% }) %>
 
             <% if (isAllowEdit) { %>
-                    <button class="btn btn-chip chip btn-outline-success dropdown-toggle" type="button"
+                    <button class="btn btn-chip chip btn-outline-success dropdown-toggle ml-10" type="button"
                             :class="[<%= availableSubjects.length === 0 %> ? 'disabled' : '']"
                             id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <%= i18n("Add") %>
@@ -54,8 +54,16 @@
 
         <div class="chips-container" role="group" aria-label="Basic example">
             <% businessPlace.groups.forEach(function(item){ %>
+            <span class="chip">
                 <a type="button" href="/group/<%= item.id %>" class="btn btn-chip btn-outline-info"><%= item.name %></a>
+            </span>
             <% }) %>
+            <% if (isAllowEdit) { %>
+                <a class="btn btn-chip chip btn-outline-success ml-10" type="button"
+                href="/admin/groups/place/<%=businessPlace.id%>">
+                    <%= i18n("Add") %>
+                </a>
+            <% } %>
         </div>
 
     </div>

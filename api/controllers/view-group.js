@@ -26,8 +26,17 @@ module.exports = {
     .populate('businessPlace')
     .populate('subjects');
 
+    const subjectIds = group.subjects.map(item => item.id);
+
+    const businessPlace = await BusinessPlace.findOne({id: group.businessPlace.id})
+    .populate('subjects');
+
+    const availableSubjects = businessPlace.subjects
+    .filter(item => !group.subjects.find(existItem => existItem.id === item.id));
+
     return {
       group,
+      availableSubjects,
       isAllowEdit: isLocalAdmin || isSuperAdmin
     };
   }
