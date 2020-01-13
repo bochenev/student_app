@@ -1,0 +1,27 @@
+<div id="group" v-cloak>
+
+  <div class="container">
+    <div class="page__sub-title">
+      <%= i18n("Group") %> <%= group.name %> (<a href="/place/<%=group.businessPlace.id%>"> <%= group.businessPlace.name %></a>)
+    </div>
+
+    <h5 class="section-heading"><%= i18n("subjects") %></h5>
+
+    <div class="chips-container" role="group" aria-label="Basic example">
+      <% group.subjects.forEach(function(item){ %>
+      <button type="button" class="btn btn-chip btn-outline-info"><%=item.name%></button>
+      <% }) %>
+    </div>
+
+
+    <h5 class="section-heading"><%= i18n("Users") %></h5>
+
+    <div class="chips-container" role="group" aria-label="Basic example">
+      <% group.users.forEach(function(item){ %>
+      <a type="button" href="/group/<%=item.id%>" class="btn btn-chip btn-outline-info"><%=item.fullName%></a>
+      <% }) %>
+    </div>
+
+  </div>
+</div>
+<%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>

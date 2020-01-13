@@ -35,6 +35,31 @@ img {
       margin-left: 5px;
     }
   }
+
+  .chip {
+    margin-bottom: 10px;
+
+    +.chip {
+      margin-left: 5px;
+    }
+
+    .chip-remove {
+      color: @error;
+      transform: rotate(45deg);
+      display: inline-block;
+      font-size: 20pt;
+      cursor: pointer;
+      position: relative;
+      left: -13px;
+      top: -11px;
+      border: 1px solid @error;
+      border-radius: 50%;
+      background: white;
+      width: 20px;
+      height: 20px;
+      line-height: 14px;
+    }
+  }
 }
 
 // Custom link styles within bodies of text
@@ -175,4 +200,10 @@ blockquote {
   padding-bottom: 10px;
   margin-bottom: 25px;
   border-bottom: 1px solid @border-lt-gray;
+}
+
+.chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1 0 auto;
 }

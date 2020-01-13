@@ -59,7 +59,7 @@ module.exports.bootstrap = async function () {
 
   try {
     // By convention, this is a good place to set up fake data during development.
-
+/*
     await Role.createEach([
       {id: 1, name: 'Student'},
       {id: 2, name: 'Teacher'},
@@ -128,8 +128,8 @@ module.exports.bootstrap = async function () {
         legalAddress: 10},
               {name: 'University of F,', description: 'The University of Alberta, is a public research university located in ',
         legalAddress: 11},
-        
-    ]);
+
+    ]);*/
 
   } catch (e) {
     sails.log(e);

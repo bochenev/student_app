@@ -9,6 +9,7 @@ parasails.registerPage('business-place', {
     formData: {},
     formErrors: {},
     cloudError: '',
+    subjects: [],
   },
 
   //  ╦  ╦╔═╗╔═╗╔═╗╦ ╦╔═╗╦  ╔═╗
@@ -115,5 +116,24 @@ parasails.registerPage('business-place', {
         this.formErrors.name = true;
       }
     },
+
+
+    removeSubject: function (placeId, subjectId) {
+      return fetch(`${location.origin}/api/v1/businessPlace/${placeId}/subjects/${subjectId}`, {
+        method: 'DELETE'
+      }).then(res => {
+        if (res.ok) window.location.reload();
+      })
+    },
+
+    appendSubject: function (placeId, subjectId) {
+      return fetch(`${location.origin}/api/v1/businessPlace/${placeId}/subjects/${subjectId}`, {
+        method: 'PUT'
+      }).then(res => {
+        if (res.ok) window.location.reload();
+      })
+    }
+
+
   }
 });

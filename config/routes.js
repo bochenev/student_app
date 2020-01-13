@@ -27,7 +27,9 @@ module.exports.routes = {
   'GET /admin/subjects/place/:placeId':        { action: 'admin/view-subjects' },
 
   'GET /actions/marks':              { action: 'actions/view-mark-make' },
+
   'GET /place/:placeId':        { action: 'business-place/view-business-place' },
+  'GET /group/:groupId':        { action: 'view-group' },
 
   'GET /faq':                { action:   'view-faq' },
   'GET /legal/terms':        { action:   'legal/view-terms' },

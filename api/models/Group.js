@@ -29,6 +29,10 @@ module.exports = {
       collection: 'academicSubject',
       via: 'groups'
     },
+    users: {
+      collection: 'user',
+      via: 'group'
+    }
   },
 
 

@@ -10,7 +10,7 @@ module.exports = {
   exits: {
 
     success: {
-      viewTemplatePath: 'pages/businessPlace'
+      viewTemplatePath: 'pages/businessPlaceAlone'
     }
 
   },
@@ -28,8 +28,12 @@ module.exports = {
     .populate('subjects')
     .populate('groups');
 
+    const subjectIds = businessPlace.subjects.map(item => item.id);
+    const availableSubjects = await AcademicSubject.find({where: {id: {'!=': subjectIds}}});
+
     return {
       businessPlace,
+      availableSubjects,
       isAllowEdit: isLocalAdmin || isSuperAdmin
     };
   }

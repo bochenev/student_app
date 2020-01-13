@@ -25,8 +25,28 @@
 
         <div class="chips-container" role="group" aria-label="Basic example">
             <% businessPlace.subjects.forEach(function(item){ %>
-            <button type="button" class="btn btn-chip btn-outline-info"><%=item.name%></button>
+                <span class="chip">
+                    <button type="button" class="btn btn-chip btn-outline-info"><%= item.name %></button>
+                    <% if (isAllowEdit) { %>
+                        <div class="chip-remove"
+                             @click="removeSubject(<%= businessPlace.id %>, <%= item.id %>)">+</div>
+                    <% } %>
+                </span>
             <% }) %>
+
+            <% if (isAllowEdit) { %>
+                    <button class="btn btn-chip chip btn-outline-success dropdown-toggle" type="button"
+                            :class="[<%= availableSubjects.length === 0 %> ? 'disabled' : '']"
+                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <%= i18n("Add") %>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a v-for="subject in <%= JSON.stringify(availableSubjects) %>"
+                           class="dropdown-item" href="#"
+                           @click="appendSubject(<%= businessPlace.id %>, subject.id)"
+                        >{{subject.name}}</a>
+                    </div>
+            <% } %>
         </div>
 
 
@@ -34,7 +54,7 @@
 
         <div class="chips-container" role="group" aria-label="Basic example">
             <% businessPlace.groups.forEach(function(item){ %>
-            <button type="button" class="btn btn-chip btn-outline-info"><%=item.name%></button>
+                <a type="button" href="/group/<%= item.id %>" class="btn btn-chip btn-outline-info"><%= item.name %></a>
             <% }) %>
         </div>
 
