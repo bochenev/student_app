@@ -3,8 +3,8 @@
 	"Global Marks Accounting": "Система учета оценок",
 	"legal address": "Юридический Адрес",
 	"physical address": "Физический Адрес",
-  "Legal Address": "Юридический Адрес",
-  "Physical Address": "Физический Адрес",
+	"Legal Address": "Юридический Адрес",
+	"Physical Address": "Физический Адрес",
 	"Second Address": "Дополнительный Адрес",
 	"Address": "Адрес",
 	"Country": "Страна",
@@ -14,7 +14,7 @@
 	"Edit": "Изменить",
 	"Remove": "Удалить",
 	"Save": "Сохранить",
-	"Cancel": "Отиена",
+	"Cancel": "Отмена",
 	"Next": "Следующие",
 	"Previous": "Предыдущие",
 	"Manage": "Изменить",
@@ -22,7 +22,7 @@
 	"subjects": "Предметы",
 	"Subjects": "Предметы",
 	"groups": "Группы",
-  "Groups": "Группы",
+	"Groups": "Группы",
 	"Business Place": "Место занятости",
 	"Business Places": "Места занятости",
 	"Users": "Пользователи",
@@ -42,5 +42,8 @@
 	"Please enter a valid Address": "Please enter a valid Address",
 	"Please enter a valid Second Address": "Please enter a valid Second Address",
 	"An error occurred": "An error occurred while processing your request. Please check your information and try again,\n or contact support if the error persists.",
-  "for": "для"
+	"for": "для",
+	"Subject": "Предмет",
+	"User": "Пользователь",
+	"Search": "Найти"
 }

@@ -1,41 +1,58 @@
 <div id="mark-make" v-cloak>
 
-  <div class="container">
-    <div class="page__sub-title">
-      <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()"><%= i18n("Back") %></button>
-      <% if(subject){ %>
-        for <%= subject %>
-      <% } %>
-    </div>
-    <table style="width: 100%;">
-      <thead>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Marks</th>
-      <% if(isSuperAdmin){ %>
-        <th></th>
-      <% } %>
-      </thead>
-      <tbody>
-      <% if(businessPlace.users){ %>
+    <div class="container">
+        <div class="page__sub-title">
+            <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()"><%= i18n("Back") %></button>
+            <%= i18n("Marks") %> (<a href="/place/<%= businessPlace.id %>"> <%= businessPlace.name %></a>)
+        </div>
 
-        <% businessPlace.users.forEach(function(item){ %>
-          <tr>
-            <td title="<%= item.id %>"><%= item.id %></td>
-            <td title="<%= item.fullName %>"><%= item.fullName %></td>
-            <td >
-              <select  class="custom-select">
-                <% marks.forEach(function(mark){ %>
-                <option value="<%=mark.id%>"><%=mark.name%></option>
-                  <% }) %>
-              </select>
-            </td>
-          </tr>
-          <% }); %>
-        <% } %>
-      </tbody>
-    </table>
-  </div>
+        <div class="filter">
+            <select class="custom-select  custom-select-lg">
+                <option selected> <%= i18n("Subject") %></option>
+                <option v-for="subject in <%= JSON.stringify(businessPlace.subjects) %>" :value="subject.id">{{subject.name}}</option>
+            </select>
+            <select class="custom-select  custom-select-lg">
+                <option selected> <%= i18n("Group") %></option>
+                <option v-for="group in <%= JSON.stringify(businessPlace.groups) %>" :value="group.id">{{group.name}}</option>
+            </select>
+            <select class="custom-select  custom-select-lg">
+                <option selected> <%= i18n("User") %></option>
+                <option v-for="user in <%= JSON.stringify(businessPlace.users) %>" :value="user.id">{{user.fullName}}</option>
+            </select>
+            <button class="btn btn-outline-success ml-10" type="button">
+                <%= i18n("Search") %>
+            </button>
+        </div>
+        <table style="width: 100%;">
+            <thead>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Marks</th>
+<!--            <% if(isSuperAdmin){ %>
+                <th></th>
+            <% } %>-->
+            </thead>
+            <tbody>
+
+            <% if(businessPlace.users){ %>
+                <% businessPlace.users.forEach(function(item){ %>
+                    <tr>
+                        <td title="<%= item.id %>"><%= item.id %></td>
+                        <td title="<%= item.fullName %>"><%= item.fullName %></td>
+                        <td>
+                            <select class="custom-select">
+                                <% marks.forEach(function(mark){ %>
+                                    <option value="<%= mark.id %>"><%= mark.name %></option>
+                                <% }) %>
+                            </select>
+                        </td>
+                    </tr>
+                <% }); %>
+            <% } %>
+
+            </tbody>
+        </table>
+    </div>
 
 
 </div>

@@ -37,5 +37,8 @@
 	"Subjects": "Subjects",
 	"Role": "Role",
 	"Groups": "Groups",
-  "for": "for"
+  "for": "for",
+  "Subject": "Subject",
+  "User": "User",
+  "Search": "Search"
 }

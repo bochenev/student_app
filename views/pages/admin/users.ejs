@@ -5,7 +5,7 @@
         <div class="page__sub-title">
             <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()"><%= i18n("Back") %></button>
             <%= i18n("Users") %>
-            <% if(businessPlace){ %>
+            <% if(businessPlace && businessPlace.id){ %>
                 <%= i18n("for") %> <%= businessPlace.name %>
             <% } %>
         </div>
@@ -36,7 +36,7 @@
                 </td>
                 <td title="<%= item.businessPlace && item.businessPlace.name %>">
                     <% if(item.businessPlace){ %>
-                        <%= item.businessPlace.name %>
+                        <a href="/place/<%= item.businessPlace.id %>"> <%= item.businessPlace.name %></a>
                     <% } %>
                 </td>
                 <td>

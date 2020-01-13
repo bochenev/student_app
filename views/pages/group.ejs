@@ -1,48 +1,56 @@
 <div id="group" v-cloak>
 
-  <div class="container">
-    <div class="page__sub-title">
-      <%= i18n("Group") %> <%= group.name %> (<a href="/place/<%=group.businessPlace.id%>"> <%= group.businessPlace.name %></a>)
-    </div>
-
-    <h5 class="section-heading"><%= i18n("subjects") %></h5>
-
-
-    <div class="chips-container" role="group" aria-label="Basic example">
-      <% group.subjects.forEach(function(item){ %>
-        <span class="chip">
-                    <button type="button" class="btn btn-chip btn-outline-info"><%= item.name %></button>
-          <% if (isAllowEdit) { %>
-            <div class="chip-remove"
-                 @click="removeSubject(<%= group.id %>, <%= item.id %>)">+</div>
-          <% } %>
-        </span>
-      <% }) %>
-
-      <% if (isAllowEdit) { %>
-        <button class="btn btn-chip chip btn-outline-success dropdown-toggle ml-10" type="button"
-                :class="[<%= availableSubjects.length === 0 %> ? 'disabled' : '']"
-                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <%= i18n("Add") %>
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a v-for="subject in <%= JSON.stringify(availableSubjects) %>"
-             class="dropdown-item" href="#"
-             @click="appendSubject(<%= group.id %>, subject.id)"
-          >{{subject.name}}</a>
+    <div class="container">
+        <div class="page__sub-title">
+            <%= i18n("Group") %> <%= group.name %> (<a href="/place/<%= group.businessPlace.id %>"> <%= group.businessPlace.name %></a>)
         </div>
-      <% } %>
+
+        <h5 class="section-heading"><%= i18n("subjects") %></h5>
+
+
+        <div class="chips-container" role="group" aria-label="Basic example">
+            <% group.subjects.forEach(function(item){ %>
+                <span class="chip">
+                    <button type="button" class="btn btn-chip btn-outline-info"><%= item.name %></button>
+                    <% if (isAllowEdit) { %>
+                        <div class="chip-remove"
+                             @click="removeSubject(<%= group.id %>, <%= item.id %>)">+</div>
+                    <% } %>
+                </span>
+            <% }) %>
+
+            <% if (isAllowEdit) { %>
+                <button class="btn btn-chip chip btn-outline-success dropdown-toggle ml-10" type="button"
+                        :class="[<%= availableSubjects.length === 0 %> ? 'disabled' : '']"
+                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <%= i18n("Add") %>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a v-for="subject in <%= JSON.stringify(availableSubjects) %>"
+                       class="dropdown-item" href="#"
+                       @click="appendSubject(<%= group.id %>, subject.id)"
+                    >{{subject.name}}</a>
+                </div>
+            <% } %>
+        </div>
+
+
+        <h5 class="section-heading"><%= i18n("Users") %></h5>
+
+        <div class="chips-container" role="group" aria-label="Basic example">
+            <% group.users.forEach(function(item){ %>
+                <span class="chip">
+                    <a type="button" class="btn btn-chip btn-outline-info"><%= item.fullName %></a>
+                </span>
+            <% }) %>
+            <% if (isAllowEdit) { %>
+                <a class="btn btn-chip chip btn-outline-success ml-10" type="button"
+                   href="/admin/users %>">
+                    <%= i18n("Add") %>
+                </a>
+            <% } %>
+        </div>
+
     </div>
-
-
-    <h5 class="section-heading"><%= i18n("Users") %></h5>
-
-    <div class="chips-container" role="group" aria-label="Basic example">
-      <% group.users.forEach(function(item){ %>
-      <a type="button" href="/group/<%=item.id%>" class="btn btn-chip btn-outline-info"><%=item.fullName%></a>
-      <% }) %>
-    </div>
-
-  </div>
 </div>
 <%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>
