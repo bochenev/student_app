@@ -7,6 +7,33 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "api/controllers/actions/view-mark-make.js",
+			"settings":
+			{
+				"buffer_size": 964,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "config/env/production.js",
+			"settings":
+			{
+				"buffer_size": 21858,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "config/session.js",
+			"settings":
+			{
+				"buffer_size": 2270,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -45,7 +72,11 @@
 	"expanded_folders":
 	[
 		"/home/vadim/Документы/develop/student_app",
-		"/home/vadim/Документы/develop/student_app/api"
+		"/home/vadim/Документы/develop/student_app/api",
+		"/home/vadim/Документы/develop/student_app/api/controllers",
+		"/home/vadim/Документы/develop/student_app/api/controllers/actions",
+		"/home/vadim/Документы/develop/student_app/config",
+		"/home/vadim/Документы/develop/student_app/config/env"
 	],
 	"file_history":
 	[
@@ -84,8 +115,108 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "api/controllers/actions/view-mark-make.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 964,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								820,
+								820
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"use_tab_stops": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 264.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "config/env/production.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 21858,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2626,
+								2626
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"use_tab_stops": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 524.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "config/session.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2270,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1280,
+								1280
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"typescript_plugin_format_options":
+							{
+								"convertTabsToSpaces": false,
+								"indentSize": 2,
+								"tabSize": 2
+							},
+							"use_tab_stops": false
+						},
+						"translation.x": 123.0,
+						"translation.y": 86.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -120,6 +251,10 @@
 		]
 	},
 	"menu_visible": true,
+	"output.doc":
+	{
+		"height": 0.0
+	},
 	"output.exec":
 	{
 		"height": 120.0
