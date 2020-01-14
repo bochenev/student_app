@@ -34,12 +34,10 @@ parasails.registerPage('mark-make', {
     fetchBusinessPlace: function () {
       const {selectedBusinessPlace} = this.filter;
 
-      this.filter = {
-        ...this.filter, 
-        selectedGroup: 0,
-        selectedUser: 0,
-        selectedSubject: 0
-      };
+      this.filter.selectedGroup = 0;
+      this.filter.selectedUser = 0;
+      this.filter.selectedSubject = 0;
+
       this.fetchedPlace = {};
       this.fetchedGroup = {};
 
