@@ -35,7 +35,7 @@ parasails.registerPage('mark-make', {
       const {selectedBusinessPlace} = this.filter;
 
       this.filter = {
-        selectedBusinessPlace, 
+        ...this.filter, 
         selectedGroup: 0,
         selectedUser: 0,
         selectedSubject: 0
