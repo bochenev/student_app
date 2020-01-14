@@ -29,7 +29,7 @@ module.exports.session = {
   // },
   // table: 'sessions',
   adapter: '@sailshq/connect-redis',
-  url: 'redis://h:pcc021680b44036d308d747271e6ead7d74baa95881e80b2b34eaef5800d3cc83@ec2-52-7-238-54.compute-1.amazonaws.com:23379',
+  url: 'redis://h:pcc021680b44036d308d747271e6ead7d74baa95881e80b2b34eaef5800d3cc83@ec2-3-218-187-15.compute-1.amazonaws.com:17529',
 
   /***************************************************************************
   *                                                                          *
