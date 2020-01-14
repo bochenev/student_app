@@ -27,6 +27,7 @@ module.exports = {
     user: {model: 'user'},
     mark: {model: 'mark'},
     author: {model: 'user'},
+    businessPlace:{model: 'businessPlace'},
   },
 
 };

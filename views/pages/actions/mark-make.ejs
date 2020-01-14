@@ -29,9 +29,8 @@
                         <option selected> <%= user.group.name %></option>
                     </select>
                 <% } else if(isTeacher || isLocalAdmin) { %>
-                    <select class="custom-select  "
+                    <select class="custom-select " v-on:change="fetchGroup()"
                             v-model="filter.selectedGroup"
-                            :disabled="filter.selectedBusinessPlace == 0"
                     >
                         <option selected value="0"> <%= i18n("Group") %></option>
                         <option v-for="group in <%= JSON.stringify(businessPlace.groups) %>" :value="group.id">{{group.name}}</option>
@@ -70,37 +69,46 @@
                     </select>
                 <% } %>
 
-                <button class="btn btn-outline-success ml-10" type="button" @click="search()">
+                <button class="btn btn-outline-success ml-10" type="button" @click="search()" :disabled="filter.selectedGroup == 0 || filter.selectedSubject == 0">
                     <%= i18n("Search") %>
                 </button>
             </div>
 
             <table style="width: 100%;">
                 <thead>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Marks</th>
-                <!--            <% if(isSuperAdmin){ %>
+                <th><%= i18n("Name") %></th>
+                <th><%= i18n("Marks") %></th>
+                <% if(isSuperAdmin){ %>
                     <th></th>
-                <% } %>-->
+                <% } %>
                 </thead>
                 <tbody>
 
-                <% if(businessPlace.users){ %>
-                    <% businessPlace.users.forEach(function(item){ %>
-                        <tr>
-                            <td title="<%= item.id %>"><%= item.id %></td>
-                            <td title="<%= item.fullName %>"><%= item.fullName %></td>
-                            <td>
-                                <select class="custom-select">
+
+                <tr v-for="item in report">
+                    <td :title="item.user.fullName">{{item.user.fullName}}</td>
+                    <td>
+                        <span v-for="mark in item.marks" :title="mark.author && mark.author.fullName">{{mark.mark && mark.mark.name}}</span>
+                    </td>
+
+                    <% if(isTeacher || isSuperAdmin || isLocalAdmin){ %>
+                        <td>
+                            <div class="manage_buttons-wrapper">
+                                <select class="custom-select" v-on:change="selectMark($event, item.user.id)" style="width: auto;">
                                     <% marks.forEach(function(mark){ %>
                                         <option value="<%= mark.id %>"><%= mark.name %></option>
                                     <% }) %>
                                 </select>
-                            </td>
-                        </tr>
-                    <% }); %>
-                <% } %>
+                                <button class="btn btn-outline-info mr-10 back-left"
+                                        @click="addMark(item.user.id, <%= user.id %>)"
+                                        :disabled="filter.selectedSubject == 0"
+                                >
+                                    <%= i18n("Add") %>
+                                </button>
+                            </div>
+                        </td>
+                    <% } %>
+                </tr>
 
                 </tbody>
             </table>
