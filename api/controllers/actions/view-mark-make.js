@@ -18,11 +18,13 @@ module.exports = {
 
   fn: async function () {
 
-    let businessPlace = {};
+    let businessPlace = {}, businessPlaces = [];
     const marks = await Mark.find();
 
+    const isLocalAdmin = this.req.me.role ? (this.req.me.role.id === 4) : false;
     const isTeacher = this.req.me.role ? (this.req.me.role.id === 2) : false;
     const isStudent = this.req.me.role ? (this.req.me.role.id === 1) : false;
+    const isSuperAdmin = Boolean(this.req.me.isSuperAdmin);
 
     if (this.req.me.businessPlace) {
       businessPlace = await BusinessPlace.findOne({id: this.req.me.businessPlace.id})
@@ -40,14 +42,19 @@ module.exports = {
 
     }
 
-
+    if(this.req.me.isSuperAdmin) {
+      businessPlaces = await BusinessPlace.find();
+    }
 
     return {
       businessPlace,
+      businessPlaces,
       marks,
       isTeacher,
       isStudent,
-      isSuperAdmin: this.req.me.isSuperAdmin
+      user: this.req.me,
+      isLocalAdmin,
+      isSuperAdmin
     };
 
   }

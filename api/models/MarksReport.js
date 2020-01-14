@@ -26,6 +26,7 @@ module.exports = {
     subject: {model: "academicSubject"},
     user: {model: 'user'},
     mark: {model: 'mark'},
+    author: {model: 'user'},
   },
 
 };

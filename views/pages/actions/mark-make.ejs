@@ -1,57 +1,115 @@
 <div id="mark-make" v-cloak>
 
     <div class="container">
-        <div class="page__sub-title">
-            <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()"><%= i18n("Back") %></button>
-            <%= i18n("Marks") %> (<a href="/place/<%= businessPlace.id %>"> <%= businessPlace.name %></a>)
-        </div>
+        <% if(businessPlace.id) { %>
+            <div class="page__sub-title">
+                <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()"><%= i18n("Back") %></button>
+                <%= i18n("Marks") %>
+                &nbsp;
+                <% if(isSuperAdmin) { %>
+                    <select class="custom-select" v-model="filter.selectedBusinessPlace" v-on:change="fetchBusinessPlace()">
+                        <option selected value="0"> <%= i18n("Business Place") %></option>
+                        <option v-for="place in <%= JSON.stringify(businessPlaces) %>" :value="place.id">{{place.name}}</option>
+                    </select>
+                <% } else { %>
+                    <a href="/place/<%= businessPlace.id %>"> <%= businessPlace.name %> </a>&nbsp;
+                <% } %>
 
-        <div class="filter">
-            <select class="custom-select  custom-select-lg">
-                <option selected> <%= i18n("Subject") %></option>
-                <option v-for="subject in <%= JSON.stringify(businessPlace.subjects) %>" :value="subject.id">{{subject.name}}</option>
-            </select>
-            <select class="custom-select  custom-select-lg">
-                <option selected> <%= i18n("Group") %></option>
-                <option v-for="group in <%= JSON.stringify(businessPlace.groups) %>" :value="group.id">{{group.name}}</option>
-            </select>
-            <select class="custom-select  custom-select-lg">
-                <option selected> <%= i18n("User") %></option>
-                <option v-for="user in <%= JSON.stringify(businessPlace.users) %>" :value="user.id">{{user.fullName}}</option>
-            </select>
-            <button class="btn btn-outline-success ml-10" type="button">
-                <%= i18n("Search") %>
-            </button>
-        </div>
-        <table style="width: 100%;">
-            <thead>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Marks</th>
-<!--            <% if(isSuperAdmin){ %>
-                <th></th>
-            <% } %>-->
-            </thead>
-            <tbody>
+                <% if(isStudent) { %>
+                    <h6 class="sub-sub-title"><%= i18n("Group") %> </h6> &nbsp;
+                    <a href="/group/<%= user.group.id %>"> <%= user.group.name %> </a>
+                <% } %>
 
-            <% if(businessPlace.users){ %>
-                <% businessPlace.users.forEach(function(item){ %>
-                    <tr>
-                        <td title="<%= item.id %>"><%= item.id %></td>
-                        <td title="<%= item.fullName %>"><%= item.fullName %></td>
-                        <td>
-                            <select class="custom-select">
-                                <% marks.forEach(function(mark){ %>
-                                    <option value="<%= mark.id %>"><%= mark.name %></option>
-                                <% }) %>
-                            </select>
-                        </td>
-                    </tr>
-                <% }); %>
-            <% } %>
+            </div>
 
-            </tbody>
-        </table>
+            <div class="filter">
+
+                <% if(isStudent) { %>
+                    <select class="custom-select  " disabled>
+                        <option selected> <%= user.group.name %></option>
+                    </select>
+                <% } else if(isTeacher || isLocalAdmin) { %>
+                    <select class="custom-select  "
+                            v-model="filter.selectedGroup"
+                            :disabled="filter.selectedBusinessPlace == 0"
+                    >
+                        <option selected value="0"> <%= i18n("Group") %></option>
+                        <option v-for="group in <%= JSON.stringify(businessPlace.groups) %>" :value="group.id">{{group.name}}</option>
+                    </select>
+                <% } else { %>
+                    <select class="custom-select" v-on:change="fetchGroup()"
+                            v-model="filter.selectedGroup"
+                            :disabled="filter.selectedBusinessPlace == 0"
+                    >
+                        <option selected value="0"> <%= i18n("Group") %></option>
+                        <option v-for="group in fetchedPlace.groups %>" :value="group.id">{{group.name}}</option>
+                    </select>
+                <% } %>
+
+                <% if(isTeacher || isSuperAdmin || isLocalAdmin) { %>
+                    <select v-model="filter.selectedSubject" class="custom-select"
+                            :disabled="filter.selectedGroup == 0  || !fetchedGroup.subjects || fetchedGroup.subjects.length == 0"
+                    >
+                        <option selected value="0"> <%= i18n("Subject") %></option>
+                        <option v-for="subject in fetchedGroup.subjects %>" :value="subject.id">{{subject.name}}</option>
+                    </select>
+                <% } else { %>
+                    <select class="custom-select">
+                        <option selected> <%= i18n("Subject") %></option>
+                        <option v-for="subject in <%= JSON.stringify(businessPlace.subjects) %>" :value="subject.id">{{subject.name}}</option>
+                    </select>
+                <% } %>
+
+                <% if(isTeacher || isSuperAdmin || isLocalAdmin) { %>
+                    <select v-model="filter.selectedUser"
+                            class="custom-select  "
+                            :disabled="filter.selectedGroup == 0 || !fetchedGroup.users || fetchedGroup.users.length == 0"
+                    >
+                        <option selected value="0"> <%= i18n("User") %></option>
+                        <option v-for="user in fetchedGroup.users %>" :value="user.id">{{user.fullName}}</option>
+                    </select>
+                <% } %>
+
+                <button class="btn btn-outline-success ml-10" type="button" @click="search()">
+                    <%= i18n("Search") %>
+                </button>
+            </div>
+
+            <table style="width: 100%;">
+                <thead>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Marks</th>
+                <!--            <% if(isSuperAdmin){ %>
+                    <th></th>
+                <% } %>-->
+                </thead>
+                <tbody>
+
+                <% if(businessPlace.users){ %>
+                    <% businessPlace.users.forEach(function(item){ %>
+                        <tr>
+                            <td title="<%= item.id %>"><%= item.id %></td>
+                            <td title="<%= item.fullName %>"><%= item.fullName %></td>
+                            <td>
+                                <select class="custom-select">
+                                    <% marks.forEach(function(mark){ %>
+                                        <option value="<%= mark.id %>"><%= mark.name %></option>
+                                    <% }) %>
+                                </select>
+                            </td>
+                        </tr>
+                    <% }); %>
+                <% } %>
+
+                </tbody>
+            </table>
+        <% } else { %>
+            <div class="page__sub-title">
+                <button class="btn btn-outline-info mr-10 back-left" onclick="history.back()"><%= i18n("Back") %></button>
+                <h2><%= i18n("You do not have business place") %></h2>
+            </div>
+        <% } %>
     </div>
 
 
