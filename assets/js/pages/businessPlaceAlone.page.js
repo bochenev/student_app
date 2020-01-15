@@ -21,12 +21,6 @@ parasails.registerPage('businessPlaceAlone', {
   //  ║║║║ ║ ║╣ ╠╦╝╠═╣║   ║ ║║ ║║║║╚═╗
   //  ╩╝╚╝ ╩ ╚═╝╩╚═╩ ╩╚═╝ ╩ ╩╚═╝╝╚╝╚═╝
   methods: {
-    /*appendSubject: function (placeId, subjectId) {
-      return fetch(`${location.origin}/api/v1/businessPlace/${placeId}/subjects/${subjectId}`, {
-        method: 'PUT'
-      }).then(res => {
-        if (res.ok) window.location.reload();
-      })
-    }*/
+    
   }
 });
