@@ -19,47 +19,35 @@
                     <h6 class="sub-sub-title"><%= i18n("Group") %> </h6> &nbsp;
                     <a href="/group/<%= user.group.id %>"> <%= user.group.name %> </a>
                 <% } %>
-
             </div>
 
-            <div class="filter">
+            <% if(!isStudent) { %>
+                <div class="filter">
+                    <% if(isTeacher || isLocalAdmin) { %>
+                        <select class="custom-select " v-on:change="fetchGroup()"
+                                v-model="filter.selectedGroup"
+                        >
+                            <option selected value="0"> <%= i18n("Group") %></option>
+                            <option v-for="group in <%= JSON.stringify(businessPlace.groups) %>" :value="group.id">{{group.name}}</option>
+                        </select>
+                    <% } else { %>
+                        <select class="custom-select" v-on:change="fetchGroup()"
+                                v-model="filter.selectedGroup"
+                                :disabled="filter.selectedBusinessPlace == 0"
+                        >
+                            <option selected value="0"> <%= i18n("Group") %></option>
+                            <option v-for="group in fetchedPlace.groups %>" :value="group.id">{{group.name}}</option>
+                        </select>
+                    <% } %>
 
-                <% if(isStudent) { %>
-                    <select class="custom-select  " disabled>
-                        <option selected> <%= user.group.name %></option>
-                    </select>
-                <% } else if(isTeacher || isLocalAdmin) { %>
-                    <select class="custom-select " v-on:change="fetchGroup()"
-                            v-model="filter.selectedGroup"
-                    >
-                        <option selected value="0"> <%= i18n("Group") %></option>
-                        <option v-for="group in <%= JSON.stringify(businessPlace.groups) %>" :value="group.id">{{group.name}}</option>
-                    </select>
-                <% } else { %>
-                    <select class="custom-select" v-on:change="fetchGroup()"
-                            v-model="filter.selectedGroup"
-                            :disabled="filter.selectedBusinessPlace == 0"
-                    >
-                        <option selected value="0"> <%= i18n("Group") %></option>
-                        <option v-for="group in fetchedPlace.groups %>" :value="group.id">{{group.name}}</option>
-                    </select>
-                <% } %>
-
-                <% if(isTeacher || isSuperAdmin || isLocalAdmin) { %>
                     <select v-model="filter.selectedSubject" class="custom-select"
                             :disabled="filter.selectedGroup == 0  || !fetchedGroup.subjects || fetchedGroup.subjects.length == 0"
                     >
                         <option selected value="0"> <%= i18n("Subject") %></option>
                         <option v-for="subject in fetchedGroup.subjects %>" :value="subject.id">{{subject.name}}</option>
                     </select>
-                <% } else { %>
-                    <select class="custom-select">
-                        <option selected> <%= i18n("Subject") %></option>
-                        <option v-for="subject in <%= JSON.stringify(businessPlace.subjects) %>" :value="subject.id">{{subject.name}}</option>
-                    </select>
-                <% } %>
 
-                <% if(isTeacher || isSuperAdmin || isLocalAdmin) { %>
+
                     <select v-model="filter.selectedUser"
                             class="custom-select  "
                             :disabled="filter.selectedGroup == 0 || !fetchedGroup.users || fetchedGroup.users.length == 0"
@@ -67,36 +55,62 @@
                         <option selected value="0"> <%= i18n("User") %></option>
                         <option v-for="user in fetchedGroup.users %>" :value="user.id">{{user.fullName}}</option>
                     </select>
-                <% } %>
 
-                <button class="btn btn-outline-success ml-10" type="button" @click="search()" :disabled="filter.selectedGroup == 0 || filter.selectedSubject == 0">
-                    <%= i18n("Search") %>
-                </button>
-            </div>
+
+                    <button class="btn btn-outline-success ml-10" type="button" @click="search()" :disabled="filter.selectedGroup == 0 || filter.selectedSubject == 0">
+                        <%= i18n("Search") %>
+                    </button>
+                </div>
+            <% } %>
 
             <table style="width: 100%;">
                 <thead>
-                <th><%= i18n("Name") %></th>
+                <% if (isTeacher || isSuperAdmin || isLocalAdmin) { %>
+                    <th><%= i18n("Name") %></th>
+                <% } else { %>
+                    <th><%= i18n("Subject") %></th>
+                <% } %>
                 <th><%= i18n("Marks") %></th>
-                <% if(isSuperAdmin){ %>
+
+                <% if (isTeacher || isSuperAdmin || isLocalAdmin) { %>
                     <th></th>
                 <% } %>
+
                 </thead>
                 <tbody>
+                <% if(isStudent) { %>
+                    <% Object.keys(studentReport).forEach(function(subject) { %>
+                        <tr>
+                            <td>
+                                <%= subject %>
+                            </td>
+                            <td>
+                                <% studentReport[subject].marks.forEach(function(mark) { %>
+                                    <span class="mark"
+                                          title="<%= mark.author.fullName + '\n' + (new Date(mark.updatedAt)).toLocaleString() %>">
+                                        <span class="value"><%= mark.mark.name %> </span>
+                                    </span>
+                                <% }) %>
+                                </span>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr v-for="item in report">
+                        <td :title="item.user.fullName">{{item.user.fullName}}</td>
+                        <td>
+                            <span class="mark" v-for="mark in item.marks"
+                                  :title="mark.author && mark.author.fullName + '\n' + (new Date(mark.updatedAt)).toLocaleString()">
+                                <span class="value">{{mark.mark && mark.mark.name}}</span>
+                            </span>
+                        </td>
 
-
-                <tr v-for="item in report">
-                    <td :title="item.user.fullName">{{item.user.fullName}}</td>
-                    <td>
-                        <span v-for="mark in item.marks" :title="mark.author && mark.author.fullName">{{mark.mark && mark.mark.name}}</span>
-                    </td>
-
-                    <% if(isTeacher || isSuperAdmin || isLocalAdmin){ %>
                         <td>
                             <div class="manage_buttons-wrapper">
                                 <select class="custom-select" v-on:change="selectMark($event, item.user.id)" style="width: auto;">
+                                    <option selected> <%= i18n("Mark") %></option>
                                     <% marks.forEach(function(mark){ %>
-                                        <option value="<%= mark.id %>"><%= mark.name %></option>
+                                               <option value="<%= mark.id %>"><%= mark.name %></option>
                                     <% }) %>
                                 </select>
                                 <button class="btn btn-outline-info mr-10 back-left"
@@ -107,9 +121,8 @@
                                 </button>
                             </div>
                         </td>
-                    <% } %>
-                </tr>
-
+                    </tr>
+                <% } %>
                 </tbody>
             </table>
         <% } else { %>
@@ -119,7 +132,6 @@
             </div>
         <% } %>
     </div>
-
 
 </div>
 <%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>

@@ -42,10 +42,11 @@
 	"Please enter a valid Address": "Поле \"Адрес\" необходимо заполнить",
 	"Please enter a valid Second Address": "Поле \"Дополнительный адрес\" необходимо заполнить",
 	"An error occurred": "При сохранении формы произошла ошибка. Пожалуйста, проверьте правильность введенной информации и повторите попытку \n, или обратитесь в службу поддержки, если ошибка повторится.",
-  "for": "для",
+	"for": "для",
 	"Subject": "Предмет",
 	"User": "Пользователь",
 	"Search": "Найти",
-	"You do not have business place": "You do not have business place",
-	"Filter": "Filter"
+	"You do not have business place": "Вы не числитесь ни в учебном заведении",
+	"Filter": "Фильтр",
+	"Mark": "Оценка"
 }

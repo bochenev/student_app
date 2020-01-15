@@ -91,8 +91,8 @@ parasails.registerPage('mark-make', {
           reportData.forEach(reportItem => {
             const reportIdx = this.report.findIndex(item => item.user.id === reportItem.user);
             if(reportItem !== -1) {
-              const {mark, author} = reportItem;
-              this.report[reportIdx].marks.push({mark, author})
+              const {mark, author, updatedAt} = reportItem;
+              this.report[reportIdx].marks.push({mark, author, updatedAt})
             }
           })
         }
@@ -104,6 +104,9 @@ parasails.registerPage('mark-make', {
     },
 
     addMark: function (userId, authorId) {
+      if(!this.selectedMarks[userId]) {
+        return;
+      }
 
       fetch(`${location.origin}/api/v1/marksReport/`, {
         method: 'POST',

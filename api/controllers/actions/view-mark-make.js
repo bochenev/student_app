@@ -18,7 +18,7 @@ module.exports = {
 
   fn: async function () {
 
-    let businessPlace = {}, businessPlaces = [];
+    let businessPlace = {}, businessPlaces = [], studentReport = {};
     const marks = await Mark.find();
 
     const isLocalAdmin = this.req.me.role ? (this.req.me.role.id === 4) : false;
@@ -28,9 +28,9 @@ module.exports = {
 
     if (this.req.me.businessPlace) {
       businessPlace = await BusinessPlace.findOne({id: this.req.me.businessPlace.id})
-        .populate('subjects')
-        .populate('groups')
-        .populate('users');
+      .populate('subjects')
+      .populate('groups')
+      .populate('users');
     }
 
     if (businessPlace.users) {
@@ -38,11 +38,29 @@ module.exports = {
     }
 
 
-    if(isStudent) {
+    if (isStudent) {
+      const marksReport = await MarksReport.find({
+        where: {
+          user: this.req.me.id,
+          businessPlace: businessPlace.id,
+        },
+        sort: 'createdAt ASC'
+      })
+      .populate('mark')
+      .populate('subject')
+      .populate('author');
 
+      marksReport
+      .sort((a, b) => a.subject.name > b.subject.name)
+      .forEach(reportItem => studentReport[reportItem.subject.name] = {marks: []});
+
+      marksReport.forEach(reportItem => {
+        const {mark, author, updatedAt} = reportItem;
+        studentReport[reportItem.subject.name].marks.push({mark, author, updatedAt})
+      });
     }
 
-    if(this.req.me.isSuperAdmin) {
+    if (this.req.me.isSuperAdmin) {
       businessPlaces = await BusinessPlace.find();
     }
 
@@ -50,6 +68,7 @@ module.exports = {
       businessPlace,
       businessPlaces,
       marks,
+      studentReport,
       isTeacher,
       isStudent,
       user: this.req.me,
