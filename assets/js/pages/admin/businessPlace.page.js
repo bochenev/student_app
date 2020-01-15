@@ -38,6 +38,8 @@ parasails.registerPage('business-place', {
       this.formErrors = {};
     },
     onEdit: function (itemData) {
+      delete itemData.createdAt;
+      delete itemData.updatedAt;
       this.formData = Object.assign({}, itemData);
       this.modal = 'edit-modal';
       this.formErrors = {};
@@ -61,7 +63,6 @@ parasails.registerPage('business-place', {
       if (Object.keys(this.formErrors).length > 0) return false;
       else {
         this.cloudError = null;
-        this.formData.updatedAt = undefined;
 
         if (this.formData.legalAddress) {
           const addressRequestLegal = await fetch(`${location.origin}/api/v1/address${this.formData.legalAddress.id ? ('/' + this.formData.legalAddress.id) : ""}`, {
