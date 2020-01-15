@@ -88,7 +88,7 @@
                                 <% studentReport[subject].marks.forEach(function(mark) { %>
                                     <span class="mark"
                                           title="<%= mark.author.fullName + '\n' + (new Date(mark.updatedAt)).toLocaleString() %>">
-                                        <span class="value"><%=mark.mark.name && mark.mark.name %> </span>
+                                        <span class="value"><%= mark.mark && mark.mark.name %> </span>
                                     </span>
                                 <% }) %>
                                 </span>
