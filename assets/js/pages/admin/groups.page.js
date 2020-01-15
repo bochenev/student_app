@@ -32,6 +32,8 @@ parasails.registerPage('groups', {
       this.isAddNew = true
     },
     onEdit: function (itemData) {
+      delete itemData.createdAt;
+      delete itemData.updatedAt;
       this.editableItemsMap = Object.assign({}, this.editableItemsMap, {[itemData.id]: itemData});
     },
     onCancel: function (id) {
