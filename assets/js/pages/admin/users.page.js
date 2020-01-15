@@ -31,6 +31,8 @@ parasails.registerPage('users', {
       return Boolean(this.editableItemsMap[id]);
     },
     onEdit: function (itemData) {
+      delete itemData.createdAt;
+      delete itemData.updatedAt;
       this.formData = Object.assign({}, itemData);
       this.isNewPlace = !Boolean(itemData.businessPlace);
       this.modal = 'edit-modal';
