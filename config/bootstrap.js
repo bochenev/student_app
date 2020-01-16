@@ -50,7 +50,8 @@ module.exports.bootstrap = async function () {
   } else {
     sails.log('Running bootstrap script because it was forced...  (either `--drop` or `--environment=test` was used)');
   }
-
+  
+/*
   // Since the hard-coded data version has been incremented, and we're running in
   // a "throwaway data" environment, delete all records from all models.
   for (let identity in sails.models) {
@@ -59,7 +60,7 @@ module.exports.bootstrap = async function () {
 
   try {
     // By convention, this is a good place to set up fake data during development.
-/*
+
     await Role.createEach([
       {id: 1, name: 'Student'},
       {id: 2, name: 'Teacher'},
@@ -129,12 +130,12 @@ module.exports.bootstrap = async function () {
               {name: 'University of F,', description: 'The University of Alberta, is a public research university located in ',
         legalAddress: 11},
 
-    ]);*/
+    ]);
 
   } catch (e) {
     sails.log(e);
   }
-
+*/
   // Save new bootstrap version
   await sails.helpers.fs.writeJson.with({
     destination: bootstrapLastRunInfoPath,

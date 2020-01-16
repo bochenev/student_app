@@ -56,6 +56,15 @@ parasails.registerPage('business-place', {
       })
     },
 
+    onEditDeepField: function (object, keyObject, property, value) {
+      const subObject = object[keyObject];
+      if (subObject) {
+        subObject[property] = value;
+      } else {
+        object[keyObject] = {[property]: value};
+      }
+    },
+
     formSubmit: async function (e) {
       e.preventDefault();
       this.handleParsingForm();
@@ -67,7 +76,7 @@ parasails.registerPage('business-place', {
         if (this.formData.legalAddress) {
           const addressRequestLegal = await fetch(`${location.origin}/api/v1/address${this.formData.legalAddress.id ? ('/' + this.formData.legalAddress.id) : ""}`, {
             method: this.formData.legalAddress.id ? 'PATCH' : 'POST',
-            body: JSON.stringify(this.formData.legal),
+            body: JSON.stringify(this.formData.legalAddress),
           });
 
           if (addressRequestLegal.ok) {
@@ -78,7 +87,7 @@ parasails.registerPage('business-place', {
         if (this.formData.physicalAddress) {
           const addressRequestPhys = await fetch(`${location.origin}/api/v1/address${this.formData.physicalAddress.id ? ('/' + this.formData.physicalAddress.id) : ""}`, {
             method: this.formData.physicalAddress.id ? 'PATCH' : 'POST',
-            body: JSON.stringify(this.formData.legal),
+            body: JSON.stringify(this.formData.physicalAddress),
           });
 
           if (addressRequestPhys.ok) {

@@ -49,7 +49,7 @@
     </div>
     <modal class="example-modal" v-if="modal==='edit-modal'" @close="closeExampleModal()" v-cloak>
         <div class="modal-header">
-            <h2 class="modal-title">Business Place</h2>
+            <h2 class="modal-title"><%= i18n("Business Place") %></h2>
             <button type="button" class="modal-close-button" data-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -74,7 +74,7 @@
                         <div class="form-group">
                             <strong><%= i18n("Country") %>:</strong>
                             <input name="legal-country" class="form-control" :class="[formErrors.legalAddress ? 'is-invalid' : '']"
-                                   v-on:input="formData.legalAddress = {...formData.legalAddress, country:  $event.target.value}"
+                                   v-on:input="onEditDeepField(formData, 'legalAddress', 'country', $event.target.value)"
                                    v-bind:value="formData.legalAddress && formData.legalAddress.country">
                             <div class="invalid-feedback" v-if="formErrors.legalAddress"><%= i18n("Please enter a valid Country") %></div>
                         </div>
@@ -82,9 +82,9 @@
                     <div class="col">
                         <div class="form-group">
                             <strong><%= i18n("City") %>:</strong>
-                            <input name="city" class="form-control" :class="[formErrors.legalAddress ? 'is-invalid' : '']"
-                                   v-on:input="formData.legalAddress = {...formData.legalAddress, city:  $event.target.value}"
-                                   v-bind:value="formData.legalAddress && formData.legalAddress.city">
+                            <input name="city" class="form-control" :class="[formErrors.legalAddress ? 'is-invalid' : '']"       
+                                    v-on:input="onEditDeepField(formData, 'legalAddress', 'city', $event.target.value)"
+                                    v-bind:value="formData.legalAddress && formData.legalAddress.city">
                             <div class="invalid-feedback" v-if="formErrors.legalAddress"><%= i18n("Please enter a valid City") %></div>
                         </div>
                     </div>
@@ -92,7 +92,7 @@
                 <div class="form-group">
                     <strong><%= i18n("Address") %>:</strong>
                     <input name="address1" class="form-control" :class="[formErrors.legalAddress ? 'is-invalid' : '']"
-                           v-on:input="formData.legalAddress = {...formData.legalAddress, address1:  $event.target.value}"
+                           v-on:input="onEditDeepField(formData, 'legalAddress', 'address1', $event.target.value)"
                            v-bind:value="formData.legalAddress && formData.legalAddress.address1">
                     <div class="invalid-feedback" v-if="formErrors.legalAddress"><%= i18n("Please enter a valid Address") %></div>
 
@@ -100,7 +100,7 @@
                 <div class="form-group">
                     <strong><%= i18n("Second Address") %>:</strong>
                     <input name="address2" class="form-control" :class="[formErrors.address ? 'is-invalid' : '']"
-                           v-on:input="formData.address = {...formData.address, address2:  $event.target.value}"
+                           v-on:input="onEditDeepField(formData, 'legalAddress', 'address2', $event.target.value)"
                            v-bind:value="formData.address && formData.address.address2">
                     <div class="invalid-feedback" v-if="formErrors.address"><%= i18n("Please enter a valid Second Address") %></div>
                 </div>
@@ -111,8 +111,8 @@
                         <div class="form-group">
                             <strong>Country:</strong>
                             <input name="legal-country" class="form-control" :class="[formErrors.physicalAddress ? 'is-invalid' : '']"
-                                   v-on:input="formData.physicalAddress = {...formData.physicalAddress, country:  $event.target.value}"
-                                   v-bind:value="formData.physicalAddress && formData.physicalAddress.country">
+                                v-on:input="onEditDeepField(formData, 'physicalAddress', 'country', $event.target.value)"
+                                v-bind:value="formData.physicalAddress && formData.physicalAddress.country">
                             <div class="invalid-feedback" v-if="formErrors.physicalAddress"><%= i18n("Please enter a valid Country") %></div>
                         </div>
                     </div>
@@ -120,8 +120,8 @@
                         <div class="form-group">
                             <strong>City:</strong>
                             <input name="city" class="form-control" :class="[formErrors.physicalAddress ? 'is-invalid' : '']"
-                                   v-on:input="formData.physicalAddress = {...formData.physicalAddress, city:  $event.target.value}"
-                                   v-bind:value="formData.physicalAddress && formData.physicalAddress.city">
+                                v-on:input="onEditDeepField(formData, 'physicalAddress', 'city', $event.target.value)"
+                                v-bind:value="formData.physicalAddress && formData.physicalAddress.city">
                             <div class="invalid-feedback" v-if="formErrors.physicalAddress"><%= i18n("Please enter a valid City") %></div>
                         </div>
                     </div>
@@ -129,15 +129,15 @@
                 <div class="form-group">
                     <strong>Address:</strong>
                     <input name="address1" class="form-control" :class="[formErrors.physicalAddress ? 'is-invalid' : '']"
-                           v-on:input="formData.physicalAddress = {...formData.address, address1:  $event.target.value}"
-                           v-bind:value="formData.physicalAddress && formData.physicalAddress.address1">
+                            v-on:input="onEditDeepField(formData, 'physicalAddress', 'address1', $event.target.value)"
+                            v-bind:value="formData.physicalAddress && formData.physicalAddress.address1">
                     <div class="invalid-feedback" v-if="formErrors.physicalAddress"><%= i18n("Please enter a valid Address") %></div>
                 </div>
                 <div class="form-group">
                     <strong>Second Address:</strong>
                     <input name="address2" class="form-control" :class="[formErrors.address ? 'is-invalid' : '']"
-                           v-on:input="formData.address = {...formData.address, address2:  $event.target.value}"
-                           v-bind:value="formData.address && formData.address.address2">
+                            v-on:input="onEditDeepField(formData, 'physicalAddress', 'address2', $event.target.value)"
+                            v-bind:value="formData.address && formData.address.address2">
                     <div class="invalid-feedback" v-if="formErrors.address"><%= i18n("Please enter a valid Second Address") %></div>
                 </div>
 
