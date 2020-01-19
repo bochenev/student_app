@@ -8,7 +8,9 @@
 
                     <div class="list-group list-group-flush">
                         <a class="list-group-item list-group-item-action " href="/admin/users"><%= i18n("Users") %></a>
+                        <% if(isAllowEdit) { %>
                         <a class="list-group-item list-group-item-action " href="/admin/roles"><%= i18n("Roles") %></a>
+                        <% } %>
                         <a class="list-group-item list-group-item-action " href="/admin/groups"><%= i18n("groups") %></a>
                         <a class="list-group-item list-group-item-action " href="/admin/marks"><%= i18n("Marks") %></a>
                         <a class="list-group-item list-group-item-action " href="/admin/subjects"><%= i18n("subjects") %></a>
